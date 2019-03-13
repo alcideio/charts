@@ -21,7 +21,7 @@ spec:
     - host: {{ . }}
       http:
         paths:
-          - path: "{{ $routePrefix }}"
+          - path: "/prometheus"
             backend:
               serviceName: {{ $serviceName }}
               servicePort: 9090
