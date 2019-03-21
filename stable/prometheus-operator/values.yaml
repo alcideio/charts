@@ -148,6 +148,8 @@ alertmanager:
 
     receivers:
 
+      - name: 'null'
+
       - name: slack_server_alerts
         slack_configs:
           - api_url: SLACK_SERVER_ALERTS_URL
@@ -226,6 +228,8 @@ alertmanager:
           receiver: 'null'
 
     receivers:
+
+      - name: 'null'
 
       - name: slack_production_alerts
         slack_configs:
