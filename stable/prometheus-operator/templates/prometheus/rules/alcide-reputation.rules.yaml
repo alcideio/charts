@@ -1,51 +1,63 @@
-{{ define "reputation.rules.yaml.tpl" }}
-- name: reputation.rules
-  rules:
-
-  - alert: ReputationFetcherFeedProcessingErrorLevel
-    expr: increase({__name__=~".*reputation_monitor_trace_fetcher_.*_error_count"}[5m]) > 0
-    labels:
-      severity: error
-      component: reputation
-    annotations:
-      description: Reputation Fetcher ({{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod }}`}} in {{`{{ $labels.environment }}`}}) - warnings increase while fetching feeds {{`{{ $value }}`}} {{`{{ $labels.__name__ }}`}}
-        feeds in last 5 minutes. 
-      summary: Inventory Processor no events
-      env: "{{`{{ $labels.environment }}`}}"
-
-
-  - alert: ReputationFetcherFeedProcessingWarningLevel
-    expr: increase({__name__=~".*reputation_monitor_trace_fetcher_.*_warn_count"}[5m]) > 0
-    labels:
-      severity: warning
-      component: reputation
-    annotations:
-      description: Reputation Fetcher ({{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod }}`}} in {{`{{ $labels.environment }}`}}) - warnings increase while fetching feeds {{`{{ $value }}`}} {{`{{ $labels.__name__ }}`}}
-        feeds in last 5 minutes. 
-      summary: Inventory Processor no events
-      env: "{{`{{ $labels.environment }}`}}"
-       
-  - alert: ReputationTransformerWarningLevel
-    expr: increase({__name__=~".*reputation_monitor_trace_reputation_.*_warn_count"}[5m]) > 0
-    labels:
-      severity: warning
-      component: reputation
-    annotations:
-      description: Reputation Transformer ({{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod }}`}} in {{`{{ $labels.environment }}`}}) - warnings processing feeds {{`{{ $value }}`}} {{`{{ $labels.__name__ }}`}}
-        feeds in last 5 minutes. 
-      summary: Inventory Processor no events
-      env: "{{`{{ $labels.environment }}`}}"
-
-  - alert: ReputationTransformerErrorLevel
-    expr: increase({__name__=~".*reputation_monitor_trace_reputation_.*_error_count"}[5m]) > 0
-    labels:
-      severity: warning
-      component: reputation
-    annotations:
-      description: Reputation Transformer ({{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod }}`}} in {{`{{ $labels.environment }}`}}) - warnings processing feeds {{`{{ $value }}`}} {{`{{ $labels.__name__ }}`}}
-        feeds in last 5 minutes. 
-      summary: Inventory Processor no events
-      env: "{{`{{ $labels.environment }}`}}"
+apiVersion: {{ printf "%s/v1" (.Values.prometheusOperator.crdApiGroup | default "monitoring.coreos.com") }}
+kind: PrometheusRule
+metadata:
+  name: {{ printf "%s-%s" (include "prometheus-operator.fullname" .) "alcide-reputation.rules" | trunc 63 | trimSuffix "-" }}
+  labels:
+    app: {{ template "prometheus-operator.name" . }}
+{{ include "prometheus-operator.labels" . | indent 4 }}
+{{- if .Values.defaultRules.labels }}
+{{ toYaml .Values.defaultRules.labels | indent 4 }}
+{{- end }}
+{{- if .Values.defaultRules.annotations }}
+  annotations:
+{{ toYaml .Values.defaultRules.annotations | indent 4 }}
+{{- end }}
+spec:
+  groups:
+    - name: reputation.rules
+      rules:
+      - alert: ReputationFetcherFeedProcessingErrorLevel
+        expr: increase({__name__=~".*reputation_monitor_trace_fetcher_.*_error_count"}[5m]) > 0
+        labels:
+            severity: error
+            component: reputation
+        annotations:
+            description: Reputation Fetcher ({{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod }}`}} in {{`{{ $labels.environment }}`}}) - warnings increase while fetching feeds {{`{{ $value }}`}} {{`{{ $labels.__name__ }}`}}
+                feeds in last 5 minutes.
+            summary: Inventory Processor no events
+            env: "{{`{{ $labels.environment }}`}}"
 
 
-{{ end }}
+      - alert: ReputationFetcherFeedProcessingWarningLevel
+        expr: increase({__name__=~".*reputation_monitor_trace_fetcher_.*_warn_count"}[5m]) > 0
+        labels:
+            severity: warning
+            component: reputation
+        annotations:
+            description: Reputation Fetcher ({{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod }}`}} in {{`{{ $labels.environment }}`}}) - warnings increase while fetching feeds {{`{{ $value }}`}} {{`{{ $labels.__name__ }}`}}
+                feeds in last 5 minutes.
+            summary: Inventory Processor no events
+            env: "{{`{{ $labels.environment }}`}}"
+
+      - alert: ReputationTransformerWarningLevel
+        expr: increase({__name__=~".*reputation_monitor_trace_reputation_.*_warn_count"}[5m]) > 0
+        labels:
+            severity: warning
+            component: reputation
+        annotations:
+            description: Reputation Transformer ({{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod }}`}} in {{`{{ $labels.environment }}`}}) - warnings processing feeds {{`{{ $value }}`}} {{`{{ $labels.__name__ }}`}}
+                feeds in last 5 minutes.
+            summary: Inventory Processor no events
+            env: "{{`{{ $labels.environment }}`}}"
+
+      - alert: ReputationTransformerErrorLevel
+        expr: increase({__name__=~".*reputation_monitor_trace_reputation_.*_error_count"}[5m]) > 0
+        labels:
+            severity: warning
+            component: reputation
+        annotations:
+            description: Reputation Transformer ({{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod }}`}} in {{`{{ $labels.environment }}`}}) - warnings processing feeds {{`{{ $value }}`}} {{`{{ $labels.__name__ }}`}}
+                feeds in last 5 minutes.
+            summary: Inventory Processor no events
+            env: "{{`{{ $labels.environment }}`}}"
+
