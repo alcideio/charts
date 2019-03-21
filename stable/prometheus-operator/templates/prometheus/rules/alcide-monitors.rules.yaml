@@ -14,7 +14,7 @@ metadata:
 {{- end }}
 spec:
   groups:
-    - name: monitors.rules
+    - name: alcide-monitors.rules
       rules:
       - alert: K8SMonitorConsoleErrorTrend
         expr: 'increase({source="K8SMonitor",__name__=~".*_trace_.*_error_count"}[5m]) > 0'

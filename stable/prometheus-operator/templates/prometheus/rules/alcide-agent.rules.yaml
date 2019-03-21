@@ -14,7 +14,7 @@ metadata:
 {{- end }}
 spec:
   groups:
-    - name: agent.rules
+    - name: alcide-agent.rules
       rules:
       - alert: AgentPodRestart
         expr: increase(kube_pod_container_status_restarts{namespace="alcide",container="nodelet"}[5m]) > 0

@@ -68,6 +68,8 @@ global:
 ## ref: https://prometheus.io/docs/alerting/alertmanager/
 ##
 alertmanager:
+  
+  envType: internal
 
   ## Deploy alertmanager
   ##
@@ -138,12 +140,13 @@ alertmanager:
 
         - match_re:
             severity: none
-          receiver: blackhole
+          receiver: 'null'
+          
+        - match_re:
+            alertname: Watchdog
+          receiver: 'null'
 
     receivers:
-
-      # Throw here every alert you want to show up in alertmanager that shouldn't be sent to slack
-      - name: blackhole
 
       - name: slack_server_alerts
         slack_configs:
@@ -209,19 +212,20 @@ alertmanager:
       group_by: ['alertname']
       group_wait: 30s
       group_interval: 5m
-      repeat_interval: 60m
+      repeat_interval: 12h
 
       receiver: slack_production_alerts
 
       routes:
         - match_re:
             severity: none
-          receiver: blackhole
+          receiver: 'null'
+
+        - match_re:
+            alertname: Watchdog
+          receiver: 'null'
 
     receivers:
-
-      # Throw here every alert you want to show up in alertmanager that shouldn't be sent to slack
-      - name: blackhole
 
       - name: slack_production_alerts
         slack_configs:
@@ -311,7 +315,7 @@ alertmanager:
   ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#alertmanagerspec
   ##
   alertmanagerSpec:
-    ## Standard object’s metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#metadata
+    ## Standard object’s metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/ENVIRONMENT/api-conventions.md#metadata
     ## Metadata Labels and Annotations gets propagated to the Alertmanager pods.
     ##
     podMetadata: {}
@@ -1098,7 +1102,7 @@ prometheus:
     ##
     routePrefix: /
 
-    ## Standard object’s metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#metadata
+    ## Standard object’s metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/ENVIRONMENT/api-conventions.md#metadata
     ## Metadata Labels and Annotations gets propagated to the prometheus pods.
     ##
     podMetadata: {}

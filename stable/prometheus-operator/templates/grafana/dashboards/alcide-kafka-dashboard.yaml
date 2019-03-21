@@ -79,7 +79,7 @@ data:
               "expr": "rate(process_cpu_seconds_total{pod=~\".*$kafka_index.*\"}[1m])",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{pod}}",
+              "legendFormat": "{{`{{pod}}`}}",
               "metric": "process_cpu_seconds_total",
               "refId": "A",
               "step": 10
@@ -175,7 +175,7 @@ data:
               "expr": "sum without(area)(jvm_memory_bytes_used{pod=~\".*$kafka_index.*\"})",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{pod}}",
+              "legendFormat": "{{`{{pod}}`}}",
               "metric": "jvm_memory_bytes_used",
               "refId": "A",
               "step": 10
@@ -271,7 +271,7 @@ data:
               "expr": "sum without(gc)(rate(jvm_gc_collection_seconds_sum{pod=~\".*$kafka_index.*\"}[5m]))",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{pod}}",
+              "legendFormat": "{{`{{pod}}`}}",
               "metric": "jvm_gc_collection_seconds_sum",
               "refId": "A",
               "step": 10
@@ -363,7 +363,7 @@ data:
               "expr": "sum without(instance)(rate(kafka_server_brokertopicmetrics_messagesin_total{pod=~\".*$kafka_index.*\",topic!=\"\"}[5m]))",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{topic}}",
+              "legendFormat": "{{`{{topic}}`}}",
               "metric": "kafka_server_brokertopicmetrics_messagesin_total",
               "refId": "A",
               "step": 10
@@ -455,7 +455,7 @@ data:
               "expr": "sum without(instance)(rate(kafka_server_brokertopicmetrics_bytesin_total{pod=~\".*$kafka_index.*\",topic!=\"\"}[5m]))",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{topic}}",
+              "legendFormat": "{{`{{topic}}`}}",
               "metric": "kafka_server_brokertopicmetrics_bytesin_total",
               "refId": "A",
               "step": 10
@@ -547,7 +547,7 @@ data:
               "expr": "sum without(instance)(rate(kafka_server_brokertopicmetrics_bytesout_total{pod=~\".*$kafka_index.*\",topic!=\"\"}[5m]))",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{topic}}",
+              "legendFormat": "{{`{{topic}}`}}",
               "metric": "kafka_server_brokertopicmetrics_bytesin_total",
               "refId": "A",
               "step": 10
@@ -639,7 +639,7 @@ data:
               "expr": "kubelet_volume_stats_used_bytes{persistentvolumeclaim=~\".*$kafka_index.*\"}",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "{{namespace}}:{{persistentvolumeclaim}}",
+              "legendFormat": "{{`{{namespace}}`}}:{{`{{persistentvolumeclaim}}`}}",
               "refId": "A"
             }
             ],
@@ -728,7 +728,7 @@ data:
               "expr": "sum(kafka_server_brokertopicmetrics_bytesin_total) by (pod)",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{pod}}",
+              "legendFormat": "{{`{{pod}}`}}",
               "metric": "kafka_server_brokertopicmetrics_bytesin_total",
               "refId": "A",
               "step": 10
@@ -820,7 +820,7 @@ data:
               "expr": "sum(kafka_server_brokertopicmetrics_bytesout_total) by (pod)",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{pod}}",
+              "legendFormat": "{{`{{pod}}`}}",
               "metric": "kafka_server_brokertopicmetrics_bytesin_total",
               "refId": "A",
               "step": 10
@@ -914,7 +914,7 @@ data:
               "expr": "kafka_consumergroup_lag{topic=\"netactivity\",consumergroup!~\".*e2e.*\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{topic}}:{{consumergroup}}:{{partition}}",
+              "legendFormat": "{{`{{topic}}`}}:{{`{{consumergroup}}`}}:{{`{{partition}}`}}",
               "metric": "kafka_server_brokertopicmetrics_bytesin_total",
               "refId": "A",
               "step": 10
@@ -1008,7 +1008,7 @@ data:
               "expr": "kafka_consumergroup_current_offset{topic=\"netactivity\",consumergroup!~\".*e2e.*\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{topic}}:{{consumergroup}}:{{partition}}",
+              "legendFormat": "{{`{{topic}}`}}:{{`{{consumergroup}}`}}:{{`{{partition}}`}}",
               "metric": "kafka_server_brokertopicmetrics_bytesin_total",
               "refId": "A",
               "step": 10
@@ -1102,7 +1102,7 @@ data:
               "expr": "kafka_consumergroup_lag{topic=\"security-features\",consumergroup!~\".*e2e.*\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{topic}}:{{consumergroup}}:{{partition}}",
+              "legendFormat": "{{`{{topic}}`}}:{{`{{consumergroup}}`}}:{{`{{partition}}`}}",
               "metric": "kafka_server_brokertopicmetrics_bytesin_total",
               "refId": "A",
               "step": 10
@@ -1196,7 +1196,7 @@ data:
               "expr": "kafka_consumergroup_lag{topic=\"inventory\",consumergroup!~\".*e2e.*\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{topic}}:{{consumergroup}}:{{partition}}",
+              "legendFormat": "{{`{{topic}}`}}:{{`{{consumergroup}}`}}:{{`{{partition}}`}}",
               "metric": "kafka_server_brokertopicmetrics_bytesin_total",
               "refId": "A",
               "step": 10
@@ -1290,7 +1290,7 @@ data:
               "expr": "kafka_consumergroup_lag{topic=\"components-activity\",consumergroup!~\".*e2e.*\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{topic}}:{{consumergroup}}:{{partition}}",
+              "legendFormat": "{{`{{topic}}`}}:{{`{{consumergroup}}`}}:{{`{{partition}}`}}",
               "metric": "kafka_server_brokertopicmetrics_bytesin_total",
               "refId": "A",
               "step": 10
@@ -1384,7 +1384,7 @@ data:
               "expr": "kafka_consumergroup_lag{topic=\"metrics\",consumergroup!~\".*e2e.*\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{topic}}:{{consumergroup}}:{{partition}}",
+              "legendFormat": "{{`{{topic}}`}}:{{`{{consumergroup}}`}}:{{`{{partition}}`}}",
               "metric": "kafka_server_brokertopicmetrics_bytesin_total",
               "refId": "A",
               "step": 10
@@ -1478,7 +1478,7 @@ data:
               "expr": "irate(kafka_consumergroup_lag{topic=\"netactivity\",consumergroup!~\".*e2e.*\"}[5m])",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{topic}}:{{consumergroup}}:{{partition}}",
+              "legendFormat": "{{`{{topic}}`}}:{{`{{consumergroup}}`}}:{{`{{partition}}`}}",
               "metric": "kafka_server_brokertopicmetrics_bytesin_total",
               "refId": "A",
               "step": 10
@@ -1572,7 +1572,7 @@ data:
               "expr": "kafka_consumergroup_lag{topic=\"alert\",consumergroup!~\".*e2e.*\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{topic}}:{{consumergroup}}:{{partition}}",
+              "legendFormat": "{{`{{topic}}`}}:{{`{{consumergroup}}`}}:{{`{{partition}}`}}",
               "metric": "kafka_server_brokertopicmetrics_bytesin_total",
               "refId": "A",
               "step": 10
@@ -1664,7 +1664,7 @@ data:
               "expr": "irate(kafka_consumergroup_lag{topic=\"inventory\",consumergroup!~\".*e2e.*\"}[5m])",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{topic}}:{{consumergroup}}:{{partition}}",
+              "legendFormat": "{{`{{topic}}`}}:{{`{{consumergroup}}`}}:{{`{{partition}}`}}",
               "metric": "kafka_server_brokertopicmetrics_bytesin_total",
               "refId": "A",
               "step": 10
@@ -1758,7 +1758,7 @@ data:
               "expr": "kafka_cluster_partition_underreplicated{topic!~\"__consumer_offsets\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{topic}}:{{partition}}",
+              "legendFormat": "{{`{{topic}}`}}:{{`{{partition}}`}}",
               "metric": "kafka_server_brokertopicmetrics_bytesin_total",
               "refId": "A",
               "step": 10
@@ -1850,7 +1850,7 @@ data:
               "expr": "irate(kafka_consumergroup_lag{topic=\"components-activity\",consumergroup!~\".*e2e*.\"}[5m])",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{topic}}:{{consumergroup}}:{{partition}}",
+              "legendFormat": "{{`{{topic}}`}}:{{`{{consumergroup}}`}}:{{`{{partition}}`}}",
               "metric": "kafka_server_brokertopicmetrics_bytesin_total",
               "refId": "A",
               "step": 10
@@ -1944,7 +1944,7 @@ data:
               "expr": "kafka_cluster_partition_insyncreplicascount{topic!~\"__consumer_offsets\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{topic}}:{{partition}}",
+              "legendFormat": "{{`{{topic}}`}}:{{`{{partition}}`}}",
               "metric": "kafka_server_brokertopicmetrics_bytesin_total",
               "refId": "A",
               "step": 10

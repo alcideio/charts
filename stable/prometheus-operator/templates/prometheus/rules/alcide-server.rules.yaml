@@ -14,7 +14,7 @@ metadata:
 {{- end }}
 spec:
   groups:
-    - name: server.rules
+    - name: alcide-server.rules
       rules:
       - alert: InventoryProcessorErrorsCount
         expr: 'increase({__name__=~".+InventoryEventsProcessorImpl_errors"}[5m]) > 0'

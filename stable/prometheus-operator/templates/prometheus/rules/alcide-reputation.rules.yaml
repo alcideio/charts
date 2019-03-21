@@ -14,7 +14,7 @@ metadata:
 {{- end }}
 spec:
   groups:
-    - name: reputation.rules
+    - name: alcide-reputation.rules
       rules:
       - alert: ReputationFetcherFeedProcessingErrorLevel
         expr: increase({__name__=~".*reputation_monitor_trace_fetcher_.*_error_count"}[5m]) > 0
