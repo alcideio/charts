@@ -1,0 +1,66 @@
+apiVersion: {{ printf "%s/v1" (.Values.prometheusOperator.crdApiGroup | default "monitoring.coreos.com") }}
+kind: PrometheusRule
+metadata:
+    name: {{ printf "%s-%s" (include "prometheus-operator.fullname" .) "alcide-infra.rules" | trunc 63 | trimSuffix "-" }}
+    labels:
+        app: {{ template "prometheus-operator.name" . }}
+        {{ include "prometheus-operator.labels" . | indent 4 }}
+        {{- if .Values.defaultRules.labels }}
+        {{ toYaml .Values.defaultRules.labels | indent 4 }}
+        {{- end }}
+        {{- if .Values.defaultRules.annotations }}
+    annotations:
+        {{ toYaml .Values.defaultRules.annotations | indent 4 }}
+        {{- end }}
+spec:
+  groups:
+    - name: alcide-infra.rules
+      rules:
+      - alert: NodeCPUUsageWarning
+        expr:  node:node_cpu_utilisation:avg1m * 100 > 80 and node:node_cpu_utilisation:avg1m * 100 < 90
+        for: 5m
+        labels:
+          severity: warning
+          component: infra
+        annotations:
+          summary: "{{`{{$labels.node}}`}}: CPU usage is above 80% for the last 5 minutes"
+          description: "Current CPU usage is: {{`{{ $value }}`}}"
+
+      - alert: NodeCPUUsageCritical
+        expr:  node:node_cpu_utilisation:avg1m * 100 > 90
+        for: 5m
+        labels:
+          severity: critical
+          component: infra
+        annotations:
+          summary: "{{`{{$labels.node}}`}}: CPU usage is above 90% for the last 5 minutes"
+          description: "Current CPU usage is: {{`{{ $value }}`}}"
+
+      - alert: NodeMemoryUsageWarning
+        expr: node:node_memory_utilisation: * 100 > 80 and node:node_memory_utilisation: * 100 < 90
+        for: 5m
+        labels:
+          severity: warning
+          component: infra
+        annotations:
+          summary: "{{`{{$labels.node}}`}}: memory usage is above 80% for the last 5 minutes"
+          description: "Current memory usage is: {{`{{ $value }}`}}"
+
+      - alert: NodeMemoryUsageCritical
+        expr:  node:node_memory_utilisation: * 100 > 90
+        for: 5m
+        labels:
+          severity: critical
+          component: infra
+        annotations:
+          summary: "{{`{{$labels.node}}`}}: memory usage is above 90% for the last 5 minutes"
+          description: "Current memory usage is: {{`{{ $value }}`}}"
+
+      - alert: AlcidePodRestart
+        expr: increase(kube_pod_container_status_restarts_total{namespace="alcide"}[10m]) > 0
+        labels:
+          severity: error
+          component: infra
+        annotations:
+          description: {{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod }}`}} was restarted {{`{{ $value }}`}} times within the last 10 minutes
+
