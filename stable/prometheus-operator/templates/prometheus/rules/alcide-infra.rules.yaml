@@ -16,16 +16,6 @@ spec:
   groups:
     - name: alcide-infra.rules
       rules:
-      - alert: NodeCPUUsageWarning
-        expr:  (node:node_cpu_utilisation:avg1m * 100 > 80) and (node:node_cpu_utilisation:avg1m * 100 < 90)
-        for: 5m
-        labels:
-          severity: warning
-          component: infra
-        annotations:
-          summary: "{{`{{$labels.node}}`}}: CPU usage is above 80% for the last 5 minutes"
-          description: "Current CPU usage is: {{`{{ $value }}`}}"
-
       - alert: NodeCPUUsageCritical
         expr:  node:node_cpu_utilisation:avg1m * 100 > 90
         for: 5m
@@ -35,17 +25,6 @@ spec:
         annotations:
           summary: "{{`{{$labels.node}}`}}: CPU usage is above 90% for the last 5 minutes"
           description: "Current CPU usage is: {{`{{ $value }}`}}"
-
-      - alert: NodeMemoryUsageWarning
-        expr: (node:node_memory_utilisation: * 100 > 80) and (node:node_memory_utilisation: * 100 < 90)
-        for: 5m
-        labels:
-          severity: warning
-          component: infra
-        annotations:
-          summary: "{{`{{$labels.node}}`}}: memory usage is above 80% for the last 5 minutes"
-          description: "Current memory usage is: {{`{{ $value }}`}}"
-
       - alert: NodeMemoryUsageCritical
         expr:  node:node_memory_utilisation: * 100 > 90
         for: 5m
@@ -55,11 +34,10 @@ spec:
         annotations:
           summary: "{{`{{$labels.node}}`}}: memory usage is above 90% for the last 5 minutes"
           description: "Current memory usage is: {{`{{ $value }}`}}"
-
       - alert: AlcidePodRestart
         expr: increase(kube_pod_container_status_restarts_total{namespace="alcide"}[10m]) > 0
         labels:
-          severity: error
+          severity: critical
           component: infra
         annotations:
           description: {{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod }}`}} was restarted {{`{{ $value }}`}} times within the last 10 minutes
