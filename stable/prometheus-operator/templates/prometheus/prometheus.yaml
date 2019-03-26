@@ -122,8 +122,9 @@ spec:
   query:
 {{ toYaml .Values.prometheus.prometheusSpec.query | indent 4}}
 {{- end }}
-{{- if eq .Values.prometheus.prometheusSpec.podAntiAffinity "hard" }}
   affinity:
+{{ toYaml .Values.prometheus.prometheusSpec.affinity | indent 4 }}
+{{- if eq .Values.prometheus.prometheusSpec.podAntiAffinity "hard" }}
     podAntiAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
       - topologyKey: {{ .Values.prometheus.prometheusSpec.podAntiAffinityTopologyKey }}

@@ -404,14 +404,26 @@ alertmanager:
     ##
     podAntiAffinityTopologyKey: kubernetes.io/hostname
 
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: alcide/ops
+                  operator: In
+                  values:
+                    - "true"
+
     ## If specified, the pod's tolerations.
     ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
-    ##
-    tolerations: []
-    # - key: "key"
-    #   operator: "Equal"
-    #   value: "value"
-    #   effect: "NoSchedule"
+    tolerations:
+      - key: "ops-no-schedule"
+        operator: "Exists"
+        effect: "NoSchedule"
+      - key: "ops-no-execute"
+        operator: "Exists"
+        effect: "NoExecute"
+
 
     ## SecurityContext holds pod-level security attributes and common container settings.
     ## This defaults to non root user with uid 1000 and gid 2000.	*v1.PodSecurityContext	false
@@ -510,6 +522,24 @@ grafana:
   persistence:
     enabled: true
     storageClassName: ops-disks
+
+  tolerations:
+    - key: "ops-no-schedule"
+      operator: "Exists"
+      effect: "NoSchedule"
+    - key: "ops-no-execute"
+      operator: "Exists"
+      effect: "NoExecute"
+
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: alcide/ops
+                operator: In
+                values:
+                  - "true"
 
 ## Component scraping the kube api server
 ##
@@ -817,24 +847,23 @@ prometheusOperator:
   ## Tolerations for use with node taints
   ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
   ##
-  tolerations: []
-  # - key: "key"
-  #   operator: "Equal"
-  #   value: "value"
-  #   effect: "NoSchedule"
+  tolerations:
+    - key: "ops-no-schedule"
+      operator: "Exists"
+      effect: "NoSchedule"
+    - key: "ops-no-execute"
+      operator: "Exists"
+      effect: "NoExecute"
 
-  ## Assign the prometheus operator to run on specific nodes
-  ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
-  ##
-  affinity: {}
-  # requiredDuringSchedulingIgnoredDuringExecution:
-  #   nodeSelectorTerms:
-  #   - matchExpressions:
-  #     - key: kubernetes.io/e2e-az-name
-  #       operator: In
-  #       values:
-  #       - e2e-az1
-  #       - e2e-az2
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: alcide/ops
+                operator: In
+                values:
+                  - "true"
 
   securityContext:
     runAsNonRoot: true
@@ -987,11 +1016,23 @@ prometheus:
     ## Tolerations for use with node taints
     ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
     ##
-    tolerations: []
-    #  - key: "key"
-    #    operator: "Equal"
-    #    value: "value"
-    #    effect: "NoSchedule"
+    tolerations:
+      - key: "ops-no-schedule"
+        operator: "Exists"
+        effect: "NoSchedule"
+      - key: "ops-no-execute"
+        operator: "Exists"
+        effect: "NoExecute"
+
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: alcide/ops
+                  operator: In
+                  values:
+                    - "true"
 
     ## Alertmanagers to which alerts will be sent
     ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#alertmanagerendpoints
