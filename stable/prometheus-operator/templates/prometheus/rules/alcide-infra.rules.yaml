@@ -24,7 +24,7 @@ spec:
           component: infra
         annotations:
           summary: "{{`{{$labels.node}}`}}: CPU usage is above 80% for the last 5 minutes"
-          description: "Current CPU usage is: {{`{{ $value }}`}}"
+          description: "Current CPU usage (Percentage): {{`{{ $value }}`}}"
 
       - alert: NodeCPUUsageCritical
         expr:  'node:node_cpu_utilisation:avg1m * 100 > 90'
@@ -34,7 +34,7 @@ spec:
           component: infra
         annotations:
           summary: "{{`{{$labels.node}}`}}: CPU usage is above 90% for the last 5 minutes"
-          description: "Current CPU usage is: {{`{{ $value }}`}}"
+          description: "Current CPU usage (Percentage): {{`{{ $value }}`}}"
 
       - alert: NodeMemoryUsageWarning
         expr: '(node:node_memory_utilisation: * 100 > 80) and (node:node_memory_utilisation: * 100 < 90)'
@@ -44,7 +44,7 @@ spec:
           component: infra
         annotations:
           summary: "{{`{{$labels.node}}`}}: memory usage is above 80% for the last 5 minutes"
-          description: "Current memory usage is: {{`{{ $value }}`}}"
+          description: "Current memory usage (Percentage): {{`{{ $value }}`}}"
 
       - alert: NodeMemoryUsageCritical
         expr:  'node:node_memory_utilisation: * 100 > 90'
@@ -54,7 +54,7 @@ spec:
           component: infra
         annotations:
           summary: "{{`{{$labels.node}}`}}: memory usage is above 90% for the last 5 minutes"
-          description: "Current memory usage is: {{`{{ $value }}`}}"
+          description: "Current memory usage (Percentage): {{`{{ $value }}`}}"
 
       - alert: AlcidePodRestart
         expr: 'increase(kube_pod_container_status_restarts_total{namespace="alcide"}[10m]) > 0'

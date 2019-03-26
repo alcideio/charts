@@ -58,9 +58,9 @@ securityContext:
   runAsUser: 10000
 
 service:
-  annotations: {}
-  #  prometheus.io/scrape: "true"
-  #  prometheus.io/port: "9216"
+  annotations:
+   prometheus.io/scrape: "true"
+   prometheus.io/port: "9216"
   port: 9216
   type: ClusterIP
 

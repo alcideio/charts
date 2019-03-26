@@ -1428,6 +1428,63 @@ prometheus:
          #
          scheme: http
 
+   - name: "mongodb"
+
+     # Additional labels to set used for the ServiceMonitorSelector. Together with standard labels from
+     # the chart
+     #
+     additionalLabels: {}
+
+     # Service label for use in assembling a job name of the form <label value>-<port>
+     # If no label is specified, the service name is used.
+     #
+     jobLabel: ""
+
+     # Label selector for services to which this ServiceMonitor applies
+     #
+     selector:
+       matchLabels:
+         metrics: mongodb
+
+     # Namespaces from which services are selected
+     #
+     namespaceSelector:
+       # Match any namespace
+       #
+       any: false
+
+       # Explicit list of namespace names to select
+       #
+       matchNames:
+         - "alcide"
+
+     # Endpoints of the selected service to be monitored
+     #
+     endpoints:
+       # Name of the endpoint's service port
+       # Mutually exclusive with targetPort
+       - port: "metrics"
+
+       # Name or number of the endpoint's target port
+       # Mutually exclusive with port
+       - targetPort: "9216"
+
+         # File containing bearer token to be used when scraping targets
+         #
+         bearerTokenFile: ""
+
+         # Interval at which metrics should be scraped
+         #
+         interval: 10s
+
+         # HTTP path to scrape for metrics
+         #
+         path: /metrics
+
+         # HTTP scheme to use for scraping
+         #
+         scheme: http
+
    - name: "e2e-metricsgw"
 
      # Additional labels to set used for the ServiceMonitorSelector. Together with standard labels from
