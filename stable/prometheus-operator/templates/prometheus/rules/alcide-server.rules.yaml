@@ -182,6 +182,7 @@ spec:
 
       - alert: KafkaInventoryLag
         expr: 'kafka_consumergroup_lag{topic="inventory",consumergroup!~".*e2e.*"} > 2000'
+        for: 10m
         labels:
             severity: warning
             component: server
@@ -191,6 +192,7 @@ spec:
 
       - alert: KafkaComponentsActivityLag
         expr: 'kafka_consumergroup_lag{topic="components-activity",consumergroup!~".*e2e.*"} > 2000'
+        for: 10m
         labels:
             severity: warning
             component: server
@@ -200,6 +202,7 @@ spec:
 
       - alert: KafkaNetActivityLag
         expr: 'kafka_consumergroup_lag{topic="netactivity",consumergroup!~".*e2e.*"} > 30000'
+        for: 10m
         labels:
             severity: warning
             component: server
