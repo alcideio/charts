@@ -227,6 +227,10 @@ alertmanager:
             alertname: Watchdog
           receiver: 'null'
 
+        - match_re:
+            component: agent
+          receiver: slack_production_alerts_agent
+
     receivers:
 
       - name: 'null'
