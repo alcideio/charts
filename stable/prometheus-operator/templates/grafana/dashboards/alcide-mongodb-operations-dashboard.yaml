@@ -88,7 +88,7 @@ data:
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{type}}",
+          "legendFormat": "{{`{{type}}`}}",
           "refId": "A",
           "step": 240
         }
@@ -181,7 +181,7 @@ data:
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{state}}",
+          "legendFormat": "{{`{{state}}`}}",
           "refId": "A",
           "step": 240
         }
@@ -269,7 +269,7 @@ data:
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{state}}",
+          "legendFormat": "{{`{{state}}`}}",
           "refId": "A",
           "step": 600
         }
@@ -472,7 +472,7 @@ data:
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{state}} - {{name}}",
+          "legendFormat": "{{`{{state}}`}} - {{`{{name}}`}}",
           "refId": "A",
           "step": 240
         }
@@ -562,7 +562,7 @@ data:
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{type}}",
+          "legendFormat": "{{`{{type}}`}}",
           "refId": "A",
           "step": 600
         }
@@ -928,7 +928,7 @@ data:
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{type}}",
+          "legendFormat": "{{`{{type}}`}}",
           "metric": "mongodb_locks_time_acquiring_global_microseconds_total",
           "refId": "A",
           "step": 240
@@ -1021,7 +1021,7 @@ data:
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{type}}",
+          "legendFormat": "{{`{{type}}`}}",
           "refId": "A",
           "step": 240
         }
@@ -1111,7 +1111,7 @@ data:
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{state}}",
+          "legendFormat": "{{`{{state}}`}}",
           "metric": "mongodb_metrics_operation_total",
           "refId": "A",
           "step": 240
@@ -1254,7 +1254,7 @@ data:
           "hide": false,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{`{{instance}}`}}",
           "refId": "A",
           "step": 240
         }
@@ -1391,7 +1391,7 @@ data:
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{device}} - {{instance}}",
+          "legendFormat": "{{`{{device}}`}} - {{`{{instance}}`}}",
           "refId": "A",
           "step": 240
         }
@@ -1500,7 +1500,7 @@ data:
           "expr": "rate(mongodb_monode_disk_reads_completed{instance=~\"shr.*\"}[5m])",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{device}} - {{instance}}",
+          "legendFormat": "{{`{{device}}`}} - {{`{{instance}}`}}",
           "refId": "A",
           "step": 240
         }
@@ -1587,7 +1587,7 @@ data:
           "expr": "rate(node_disk_writes_completed{instance=~\"shr.*\"}[5m])",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{device}} - {{instance}}",
+          "legendFormat": "{{`{{device}}`}} - {{`{{instance}}`}}",
           "refId": "A",
           "step": 240
         }

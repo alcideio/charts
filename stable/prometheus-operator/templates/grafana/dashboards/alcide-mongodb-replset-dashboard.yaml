@@ -517,7 +517,7 @@ data:
           "format": "time_series",
           "interval": "5m",
           "intervalFactor": 1,
-          "legendFormat": "{{ engine }}",
+          "legendFormat": "{{`{{ engine }}`}}",
           "metric": "",
           "refId": "A",
           "step": 300
@@ -585,7 +585,7 @@ data:
           "format": "time_series",
           "interval": "$interval",
           "intervalFactor": 1,
-          "legendFormat": "{{type}}",
+          "legendFormat": "{{`{{ type }}`}}",
           "refId": "A",
           "step": 300
         }
@@ -1030,7 +1030,7 @@ data:
           "hide": false,
           "interval": "$interval",
           "intervalFactor": 1,
-          "legendFormat": "{{ instance }} - {{state}}",
+          "legendFormat": "{{`{{ instance }}`}} - {{`{{state}}`}}",
           "metric": "",
           "refId": "J",
           "step": 300
@@ -1141,7 +1141,7 @@ data:
           "hide": false,
           "interval": "$interval",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{`{{instance}}`}}",
           "metric": "",
           "refId": "J",
           "step": 300
@@ -1252,7 +1252,7 @@ data:
           "hide": false,
           "interval": "$interval",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{`{{instance}}`}}",
           "refId": "A",
           "step": 300
         }
@@ -1360,7 +1360,7 @@ data:
           "format": "time_series",
           "interval": "$interval",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{`{{instance}}`}}",
           "refId": "A",
           "step": 300
         }
