@@ -245,3 +245,101 @@ spec:
         annotations:
             description: "kafka has lost a member in ISR at topic:{{`{{ $labels.topic }}`}} partition:{{`{{ $labels.partition }}`}}"
             summary: "Broker was removed from ISR at topic:{{`{{ $labels.topic }}`}} partition:{{`{{ $labels.partition }}`}}"
+
+      - alert: MongoDBQueuedWriteRequests
+        expr: 'increase(mongodb_mongod_global_lock_client{type="writer",namespace="alcide"}[10m]) > 100'
+        labels:
+            severity: critical
+            component: server
+        annotations:
+            description: "{{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod }}`}} write queue has increased by {{`{{ $value }}`}} within the last 10 minutes"
+
+      - alert: MongoDBQueuedReadRequests
+        expr: 'increase(mongodb_mongod_global_lock_client{type="reader",namespace="alcide"}[10m]) > 100'
+        labels:
+            severity: critical
+            component: server
+        annotations:
+            description: "{{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod }}`}} read queue has increased by {{`{{ $value }}`}} within the last 10 minutes"
+
+      - alert: MongoDBReplicationLagWarning
+        expr: '(max(mongodb_mongod_replset_member_optime_date{state="PRIMARY", set="$replset"}) - min(mongodb_mongod_replset_member_optime_date{state="SECONDARY"})) or vector(0) > 60'
+        labels:
+            severity: warning
+            component: server
+        annotations:
+            summary: "Current MongoDB replication lag is {{`{{ $value }}`}} seconds"
+            description: "A high replication lag can be due to: Networking issue between the primary and secondary making nodes unreachable: check members.state to spot unreachable nodesA secondary node applying data slower than the primary. Insufficient write capacity in which case you should add more shards: check queued write requests. Slow operations on the primary node blocking replication. You can spot slow queries with the db.getProfilingStatus() command or through the Visual Query Profiler in MongoDB Ops Manager if you are using it: level 1 corresponds to slow operations (taking longer than the threshold defined by the operationProfiling.slowOpThresholdMs parameter set to 100 ms by default). It can be due to heavy write operations on the primary node or an under-provisioned secondary. You can prevent the latter by scaling up the secondary to match the primary capacity. You can use “majority” write concern to make sure writes are not getting ahead of replication."
+
+      - alert: MongoDBReplicationLagCritical
+        expr: '(max(mongodb_mongod_replset_member_optime_date{state="PRIMARY", set="$replset"}) - min(mongodb_mongod_replset_member_optime_date{state="SECONDARY"})) or vector(0) > 240'
+        labels:
+            severity: critical
+            component: server
+        annotations:
+            summary: "Current MongoDB replication lag is {{`{{ $value }}`}} seconds"
+            description: "A high replication lag can be due to: Networking issue between the primary and secondary making nodes unreachable: check members.state to spot unreachable nodes. A secondary node applying data slower than the primary. Insufficient write capacity in which case you should add more shards: check queued write requests. Slow operations on the primary node blocking replication. You can spot slow queries with the db.getProfilingStatus() command or through the Visual Query Profiler in MongoDB Ops Manager if you are using it: level 1 corresponds to slow operations (taking longer than the threshold defined by the operationProfiling.slowOpThresholdMs parameter set to 100 ms by default). It can be due to heavy write operations on the primary node or an under-provisioned secondary. You can prevent the latter by scaling up the secondary to match the primary capacity. You can use “majority” write concern to make sure writes are not getting ahead of replication."
+
+      - alert: MongoDBReplicaInRecoveryState
+        expr: 'mongodb_mongod_replset_member_state == 3'
+        labels:
+            severity: warning
+            component: server
+        annotations:
+            summary: "{{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod }}`}} is in RECOVERY mode."
+            description: "{{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod }}`}} is in RECOVERY mode. If this isn't the result of an intentional operation you should check the root cause for this status."
+
+      - alert: MongoDBReplicaInRecoveryState
+        expr: 'mongodb_mongod_replset_member_state == 3'
+        labels:
+            severity: warning
+            component: server
+        annotations:
+            summary: "{{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod }}`}} is in RECOVERY mode."
+            description: "{{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod }}`}} is in RECOVERY mode. If this isn't the result of an intentional operation you should check the root cause for this status."
+
+      - alert: MongoDBReplicaInUnknownState
+        expr: 'mongodb_mongod_replset_member_state == 6'
+        labels:
+            severity: critical
+            component: server
+        annotations:
+            summary: "{{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod }}`}} is in UNKNOWN state."
+            description: "{{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod }}`}} is in UNKNOWN state."
+
+      - alert: MongoDBReplicaIsDown
+        expr: 'mongodb_mongod_replset_member_state == 8'
+        labels:
+            severity: critical
+            component: server
+        annotations:
+            summary: "{{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod }}`}} is in CRITICAL state."
+            description: "{{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod }}`}} is in CRITICAL state."
+
+      - alert: MongoDBReplicaWasRemoved
+        expr: 'mongodb_mongod_replset_member_state == 10'
+        labels:
+            severity: critical
+            component: server
+        annotations:
+            summary: "{{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod }}`}} has been removed from the replica set."
+            description: "{{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod }}`}} has been removed from the replica set."
+
+      - alert: MongoDBWiredTigerConcurrentTransactionsReadAvailable
+        expr: 'mongodb_mongod_wiredtiger_concurrent_transactions_available_tickets{type="read"} == 0'
+        labels:
+            severity: warning
+            component: server
+        annotations:
+            summary: "{{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod }}`}} is out of read tickets!"
+            description: "When the number of available read or write tickets remaining reaches zero, new read or write requests will be queued until a new read or write ticket is available. The maximums of concurrent read and write operations are respectively defined by the parameters wiredTigerConcurrentReadTransactions and wiredTigerConcurrentWriteTransactions. Both are equal to 128 by default. However be careful when increasing it: if the number of simultaneous operations gets too high, you might run out of system resources (CPU in particular). Scaling horizontally by adding more shards can help to support high throughputs."
+
+      - alert: MongoDBWiredTigerConcurrentTransactionsWriteAvailable
+        expr: 'mongodb_mongod_wiredtiger_concurrent_transactions_available_tickets{type="write"} == 0'
+        labels:
+            severity: warning
+            component: server
+        annotations:
+            summary: "{{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod }}`}} is out of write tickets!"
+            description: "When the number of available read or write tickets remaining reaches zero, new read or write requests will be queued until a new read or write ticket is available. The maximums of concurrent read and write operations are respectively defined by the parameters wiredTigerConcurrentReadTransactions and wiredTigerConcurrentWriteTransactions. Both are equal to 128 by default. However be careful when increasing it: if the number of simultaneous operations gets too high, you might run out of system resources (CPU in particular). Scaling horizontally by adding more shards can help to support high throughputs."
+

@@ -63,4 +63,3 @@ spec:
           component: infra
         annotations:
           description: "{{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod }}`}} was restarted {{`{{ $value }}`}} times within the last 10 minutes"
-
