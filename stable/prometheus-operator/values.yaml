@@ -1485,7 +1485,7 @@ prometheus:
          - "alcide"
      endpoints:
        - port: metrics
-       - targetPort: "6667"
+         targetPort: 6667
          interval: 60s
          path: /metrics
          scheme: https
