@@ -1374,6 +1374,30 @@ prometheus:
 #      #
 #         scheme: http
 
+#      # TLS configuration to use when scraping the endpoint
+#      #
+#         tlsConfig:
+#
+#          # Path to the CA file
+#          #
+#           caFile: ""
+#
+#          # Path to client certificate file
+#          #
+#           certFile: ""
+#
+#          # Skip certificate verification
+#          #
+#           insecureSkipVerify: false
+#
+#          # Path to client key file
+#          #
+#           keyFile: ""
+#
+#          # Server name used to verify host name
+#          #
+#           serverName: ""
+
    - name: "telexporter"
      additionalLabels: {}
      jobLabel: ""
@@ -1481,28 +1505,6 @@ prometheus:
          interval: 60s
          path: /metrics
          scheme: https
-         insecureSkipVerify: true
+         tlsConfig:
+           insecureSkipVerify: true
 
-#      # TLS configuration to use when scraping the endpoint
-#      #
-#         tlsConfig:
-#
-#          # Path to the CA file
-#          #
-#           caFile: ""
-#
-#          # Path to client certificate file
-#          #
-#           certFile: ""
-#
-#          # Skip certificate verification
-#          #
-#           insecureSkipVerify: false
-#
-#          # Path to client key file
-#          #
-#           keyFile: ""
-#
-#          # Server name used to verify host name
-#          #
-#           serverName: ""
