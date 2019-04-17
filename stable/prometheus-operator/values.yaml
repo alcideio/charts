@@ -1364,7 +1364,7 @@ prometheus:
 #
 #      # Interval at which metrics should be scraped
 #      #
-#         interval: 10s
+#         interval: 30s
 #
 #      # HTTP path to scrape for metrics
 #      #
@@ -1399,109 +1399,79 @@ prometheus:
 #           serverName: ""
 
    - name: "telexporter"
-     additionalLabels: {}
-     jobLabel: ""
      selector:
        matchLabels:
          metrics: alcide
      namespaceSelector:
-       any: false
        matchNames:
          - "alcide"
      endpoints:
-       - port: "http"
        - targetPort: "8080"
-         bearerTokenFile: ""
-         interval: 10s
+         interval: 30s
          path: /metrics
          scheme: http
 
    - name: "kafka"
-     additionalLabels: {}
-     jobLabel: ""
      selector:
        matchLabels:
          metrics: kafka
      namespaceSelector:
-       any: false
        matchNames:
          - "alcide"
      endpoints:
-       - port: "http"
        - targetPort: "7070"
-         bearerTokenFile: ""
-         interval: 10s
+         interval: 30s
          path: /metrics
          scheme: http
 
    - name: "cassandra"
-     additionalLabels: {}
-     jobLabel: ""
      selector:
        matchLabels:
          metrics: cassandra
      namespaceSelector:
-       any: false
        matchNames:
          - "alcide"
      endpoints:
-       - port: "http"
        - targetPort: "7070"
-         bearerTokenFile: ""
-         interval: 10s
+         interval: 30s
          path: /metrics
          scheme: http
 
    - name: "mongodb"
-     additionalLabels: {}
-     jobLabel: ""
      selector:
        matchLabels:
          metrics: mongodb
      namespaceSelector:
-       any: false
        matchNames:
          - "alcide"
      endpoints:
-       - port: "metrics"
        - targetPort: "9216"
-         bearerTokenFile: ""
-         interval: 10s
+         interval: 30s
          path: /metrics
          scheme: http
 
    - name: "e2e-metricsgw"
-     additionalLabels: {}
-     jobLabel: ""
      selector:
        matchLabels:
          metrics: e2e-metricsgw
      namespaceSelector:
-       any: false
        matchNames:
          - "alcide"
      endpoints:
-       - port: "http"
        - targetPort: "9091"
-         bearerTokenFile: ""
          interval: 60s
          path: /metrics
          scheme: http
 
    - name: "olympia"
-     additionalLabels: {}
-     jobLabel: ""
      selector:
        matchLabels:
          metrics: olympia
      namespaceSelector:
-       any: false
        matchNames:
          - "alcide"
      endpoints:
-       - port: "olympia-metrics"
        - targetPort: "6667"
-         bearerTokenFile: ""
          interval: 60s
          path: /metrics
          scheme: https
