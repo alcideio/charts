@@ -1,0 +1,2362 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: grafana-alcide-olympia-dashboard
+    labels:
+      {{- if $.Values.grafana.sidecar.dashboards.label }}
+      {{ $.Values.grafana.sidecar.dashboards.label }}: "1"
+      {{- end }}
+      app: {{ template "prometheus-operator.name" $ }}-grafana
+{{ include "prometheus-operator.labels" $ | indent 4 }}
+data:
+    alcide-olympia-dashboard.json: |-
+        {
+            "annotations": {
+                "list": [
+                {
+                    "builtIn": 1,
+                    "datasource": "-- Grafana --",
+                    "enable": true,
+                    "hide": true,
+                    "iconColor": "rgba(0, 211, 255, 1)",
+                    "name": "Olympia",
+                    "type": "dashboard"
+                }
+                ]
+            },
+            "description": "Olympia API Server",
+            "editable": true,
+            "gnetId": 9878,
+            "graphTooltip": 0,
+            "id": 33,
+            "iteration": 1555850726847,
+            "links": [],
+            "panels": [
+            {
+                "collapsed": false,
+                "gridPos": {
+                    "h": 1,
+                    "w": 24,
+                    "x": 0,
+                    "y": 0
+                },
+                "id": 27,
+                "panels": [],
+                "repeat": null,
+                "title": "Health",
+                "type": "row"
+            },
+            {
+                "cacheTimeout": null,
+                "colorBackground": false,
+                "colorValue": true,
+                "colors": [
+                    "rgba(245, 54, 54, 0.9)",
+                    "rgba(237, 129, 40, 0.89)",
+                    "rgba(50, 172, 45, 0.97)"
+                ],
+                "datasource": "Prometheus",
+                "format": "none",
+                "gauge": {
+                    "maxValue": 100,
+                    "minValue": 0,
+                    "show": false,
+                    "thresholdLabels": false,
+                    "thresholdMarkers": true
+                },
+                "gridPos": {
+                    "h": 2,
+                    "w": 3,
+                    "x": 0,
+                    "y": 1
+                },
+                "id": 5,
+                "interval": null,
+                "links": [],
+                "mappingType": 1,
+                "mappingTypes": [
+                {
+                    "name": "value to text",
+                    "value": 1
+                },
+                {
+                    "name": "range to text",
+                    "value": 2
+                }
+                ],
+                "maxDataPoints": 100,
+                "nullPointMode": "connected",
+                "nullText": null,
+                "postfix": "",
+                "postfixFontSize": "50%",
+                "prefix": "",
+                "prefixFontSize": "50%",
+                "rangeMaps": [
+                {
+                    "from": "null",
+                    "text": "N/A",
+                    "to": "null"
+                }
+                ],
+                "sparkline": {
+                    "fillColor": "rgba(31, 118, 189, 0.18)",
+                    "full": false,
+                    "lineColor": "rgb(31, 120, 193)",
+                    "show": false
+                },
+                "tableColumn": "",
+                "targets": [
+                {
+                    "expr": "count(up{job=\"olympia\"})",
+                    "format": "time_series",
+                    "hide": false,
+                    "intervalFactor": 2,
+                    "legendFormat": "",
+                    "refId": "A",
+                    "step": 600
+                }
+                ],
+                "thresholds": "0,1",
+                "title": "Olympia",
+                "type": "singlestat",
+                "valueFontSize": "80%",
+                "valueMaps": [
+                {
+                    "op": "=",
+                    "text": "UP",
+                    "value": "1"
+                },
+                {
+                    "op": "=",
+                    "text": "DOWN",
+                    "value": "null"
+                },
+                {
+                    "op": "=",
+                    "text": "DOWN",
+                    "value": "0"
+                }
+                ],
+                "valueName": "current"
+            },
+            {
+                "cacheTimeout": null,
+                "colorBackground": false,
+                "colorValue": true,
+                "colors": [
+                    "rgba(50, 172, 45, 0.97)",
+                    "#5794F2",
+                    "rgba(245, 54, 54, 0.9)"
+                ],
+                "datasource": "Prometheus",
+                "decimals": null,
+                "format": "none",
+                "gauge": {
+                    "maxValue": 100,
+                    "minValue": 0,
+                    "show": false,
+                    "thresholdLabels": false,
+                    "thresholdMarkers": true
+                },
+                "gridPos": {
+                    "h": 2,
+                    "w": 4,
+                    "x": 3,
+                    "y": 1
+                },
+                "id": 41,
+                "interval": null,
+                "links": [],
+                "mappingType": 1,
+                "mappingTypes": [
+                {
+                    "name": "value to text",
+                    "value": 1
+                },
+                {
+                    "name": "range to text",
+                    "value": 2
+                }
+                ],
+                "maxDataPoints": 100,
+                "nullPointMode": "connected",
+                "nullText": null,
+                "postfix": "",
+                "postfixFontSize": "50%",
+                "prefix": "",
+                "prefixFontSize": "50%",
+                "rangeMaps": [
+                {
+                    "from": "null",
+                    "text": "N/A",
+                    "to": "null"
+                }
+                ],
+                "sparkline": {
+                    "fillColor": "rgba(31, 118, 189, 0.18)",
+                    "full": false,
+                    "lineColor": "rgb(31, 120, 193)",
+                    "show": false
+                },
+                "tableColumn": "",
+                "targets": [
+                {
+                    "expr": "etcd_object_counts{resource=\"TopologyEntities.olympus.alcide.io\",job=\"olympia\",instance=\"$instance\"}",
+                    "format": "time_series",
+                    "hide": false,
+                    "intervalFactor": 2,
+                    "legendFormat": "",
+                    "refId": "A",
+                    "step": 600
+                }
+                ],
+                "thresholds": "",
+                "title": "Topology Entities",
+                "type": "singlestat",
+                "valueFontSize": "80%",
+                "valueMaps": [
+                {
+                    "op": "=",
+                    "text": "0",
+                    "value": "null"
+                }
+                ],
+                "valueName": "current"
+            },
+            {
+                "cacheTimeout": null,
+                "colorBackground": false,
+                "colorValue": true,
+                "colors": [
+                    "#5794F2",
+                    "#5794F2",
+                    "rgba(245, 54, 54, 0.9)"
+                ],
+                "datasource": "Prometheus",
+                "decimals": null,
+                "format": "none",
+                "gauge": {
+                    "maxValue": 100,
+                    "minValue": 0,
+                    "show": false,
+                    "thresholdLabels": false,
+                    "thresholdMarkers": true
+                },
+                "gridPos": {
+                    "h": 2,
+                    "w": 4,
+                    "x": 7,
+                    "y": 1
+                },
+                "id": 42,
+                "interval": null,
+                "links": [],
+                "mappingType": 1,
+                "mappingTypes": [
+                {
+                    "name": "value to text",
+                    "value": 1
+                },
+                {
+                    "name": "range to text",
+                    "value": 2
+                }
+                ],
+                "maxDataPoints": 100,
+                "nullPointMode": "connected",
+                "nullText": null,
+                "postfix": "",
+                "postfixFontSize": "50%",
+                "prefix": "",
+                "prefixFontSize": "50%",
+                "rangeMaps": [
+                {
+                    "from": "null",
+                    "text": "N/A",
+                    "to": "null"
+                }
+                ],
+                "sparkline": {
+                    "fillColor": "rgba(31, 118, 189, 0.18)",
+                    "full": false,
+                    "lineColor": "rgb(31, 120, 193)",
+                    "show": false
+                },
+                "tableColumn": "",
+                "targets": [
+                {
+                    "expr": "etcd_object_counts{resource=\"compiledendpointpolicies.sphere.alcide.io\",job=\"olympia\",instance=\"$instance\"}",
+                    "format": "time_series",
+                    "hide": false,
+                    "intervalFactor": 2,
+                    "legendFormat": "",
+                    "refId": "A",
+                    "step": 600
+                }
+                ],
+                "thresholds": "",
+                "title": "Compiled Endpoint Policy",
+                "type": "singlestat",
+                "valueFontSize": "80%",
+                "valueMaps": [
+                {
+                    "op": "=",
+                    "text": "0",
+                    "value": "null"
+                }
+                ],
+                "valueName": "current"
+            },
+            {
+                "cacheTimeout": null,
+                "colorBackground": false,
+                "colorValue": true,
+                "colors": [
+                    "rgba(50, 172, 45, 0.97)",
+                    "rgba(237, 129, 40, 0.89)",
+                    "rgba(245, 54, 54, 0.9)"
+                ],
+                "datasource": "Prometheus",
+                "decimals": null,
+                "format": "percent",
+                "gauge": {
+                    "maxValue": 100,
+                    "minValue": 0,
+                    "show": true,
+                    "thresholdLabels": false,
+                    "thresholdMarkers": true
+                },
+                "gridPos": {
+                    "h": 4,
+                    "w": 3,
+                    "x": 11,
+                    "y": 1
+                },
+                "id": 50,
+                "interval": null,
+                "links": [],
+                "mappingType": 1,
+                "mappingTypes": [
+                {
+                    "name": "value to text",
+                    "value": 1
+                },
+                {
+                    "name": "range to text",
+                    "value": 2
+                }
+                ],
+                "maxDataPoints": 100,
+                "nullPointMode": "connected",
+                "nullText": null,
+                "postfix": "",
+                "postfixFontSize": "50%",
+                "prefix": "",
+                "prefixFontSize": "50%",
+                "rangeMaps": [
+                {
+                    "from": "null",
+                    "text": "N/A",
+                    "to": "null"
+                }
+                ],
+                "sparkline": {
+                    "fillColor": "rgba(31, 118, 189, 0.18)",
+                    "full": false,
+                    "lineColor": "rgb(31, 120, 193)",
+                    "show": false
+                },
+                "tableColumn": "",
+                "targets": [
+                {
+                    "expr": "100 * sum(container_memory_usage_bytes{job=\"kubelet\", namespace=\"alcide\", container_name=\"olympia\"})/\n\nsum(kube_pod_container_resource_limits_memory_bytes{job=\"kube-state-metrics\", namespace=\"alcide\", container=\"olympia\"})",
+                    "format": "time_series",
+                    "hide": false,
+                    "interval": "",
+                    "intervalFactor": 2,
+                    "legendFormat": "",
+                    "refId": "A",
+                    "step": 600
+                }
+                ],
+                "thresholds": "50,80",
+                "title": "Memory Pressure",
+                "type": "singlestat",
+                "valueFontSize": "80%",
+                "valueMaps": [
+                {
+                    "op": "=",
+                    "text": "N/A",
+                    "value": "null"
+                }
+                ],
+                "valueName": "current"
+            },
+            {
+                "cacheTimeout": null,
+                "colorBackground": false,
+                "colorValue": true,
+                "colors": [
+                    "#CA95E5",
+                    "#CA95E5",
+                    "rgba(245, 54, 54, 0.9)"
+                ],
+                "datasource": "Prometheus",
+                "decimals": null,
+                "format": "none",
+                "gauge": {
+                    "maxValue": 100,
+                    "minValue": 0,
+                    "show": false,
+                    "thresholdLabels": false,
+                    "thresholdMarkers": true
+                },
+                "gridPos": {
+                    "h": 2,
+                    "w": 6,
+                    "x": 14,
+                    "y": 1
+                },
+                "id": 54,
+                "interval": null,
+                "links": [],
+                "mappingType": 1,
+                "mappingTypes": [
+                {
+                    "name": "value to text",
+                    "value": 1
+                },
+                {
+                    "name": "range to text",
+                    "value": 2
+                }
+                ],
+                "maxDataPoints": 100,
+                "nullPointMode": "connected",
+                "nullText": null,
+                "postfix": "",
+                "postfixFontSize": "50%",
+                "prefix": "",
+                "prefixFontSize": "50%",
+                "rangeMaps": [
+                {
+                    "from": "null",
+                    "text": "N/A",
+                    "to": "null"
+                }
+                ],
+                "sparkline": {
+                    "fillColor": "rgba(31, 118, 189, 0.18)",
+                    "full": false,
+                    "lineColor": "rgb(31, 120, 193)",
+                    "show": false
+                },
+                "tableColumn": "",
+                "targets": [
+                {
+                    "expr": "etcd_object_counts{resource=\"reputationfeeds.diana.alcide.io\",job=\"olympia\",instance=\"$instance\"}",
+                    "format": "time_series",
+                    "hide": false,
+                    "intervalFactor": 2,
+                    "legendFormat": "",
+                    "refId": "A",
+                    "step": 600
+                }
+                ],
+                "thresholds": "",
+                "title": "Reputation Feeds",
+                "type": "singlestat",
+                "valueFontSize": "80%",
+                "valueMaps": [
+                {
+                    "op": "=",
+                    "text": "0",
+                    "value": "null"
+                }
+                ],
+                "valueName": "current"
+            },
+            {
+                "cacheTimeout": null,
+                "colorBackground": false,
+                "colorValue": true,
+                "colors": [
+                    "rgba(50, 172, 45, 0.97)",
+                    "rgba(237, 129, 40, 0.89)",
+                    "rgba(245, 54, 54, 0.9)"
+                ],
+                "datasource": "Prometheus",
+                "decimals": null,
+                "format": "none",
+                "gauge": {
+                    "maxValue": 100,
+                    "minValue": 0,
+                    "show": false,
+                    "thresholdLabels": false,
+                    "thresholdMarkers": true
+                },
+                "gridPos": {
+                    "h": 2,
+                    "w": 4,
+                    "x": 20,
+                    "y": 1
+                },
+                "id": 33,
+                "interval": null,
+                "links": [],
+                "mappingType": 1,
+                "mappingTypes": [
+                {
+                    "name": "value to text",
+                    "value": 1
+                },
+                {
+                    "name": "range to text",
+                    "value": 2
+                }
+                ],
+                "maxDataPoints": 100,
+                "nullPointMode": "connected",
+                "nullText": null,
+                "postfix": "",
+                "postfixFontSize": "50%",
+                "prefix": "",
+                "prefixFontSize": "50%",
+                "rangeMaps": [
+                {
+                    "from": "null",
+                    "text": "N/A",
+                    "to": "null"
+                }
+                ],
+                "sparkline": {
+                    "fillColor": "rgba(31, 118, 189, 0.18)",
+                    "full": false,
+                    "lineColor": "rgb(31, 120, 193)",
+                    "show": false
+                },
+                "tableColumn": "",
+                "targets": [
+                {
+                    "expr": "sum(rate(apiserver_request_count{code=~\"5..\", job=\"olympia\"}[1h]))",
+                    "format": "time_series",
+                    "hide": false,
+                    "intervalFactor": 2,
+                    "legendFormat": "",
+                    "refId": "A",
+                    "step": 600
+                }
+                ],
+                "thresholds": "5,10",
+                "title": "API Errors 5xx  [1h]",
+                "type": "singlestat",
+                "valueFontSize": "80%",
+                "valueMaps": [
+                {
+                    "op": "=",
+                    "text": "0",
+                    "value": "null"
+                }
+                ],
+                "valueName": "current"
+            },
+            {
+                "cacheTimeout": null,
+                "colorBackground": false,
+                "colorValue": true,
+                "colors": [
+                    "rgba(245, 54, 54, 0.9)",
+                    "#73BF69",
+                    "rgba(50, 172, 45, 0.97)"
+                ],
+                "datasource": "Prometheus",
+                "decimals": null,
+                "format": "none",
+                "gauge": {
+                    "maxValue": 100,
+                    "minValue": 0,
+                    "show": false,
+                    "thresholdLabels": false,
+                    "thresholdMarkers": true
+                },
+                "gridPos": {
+                    "h": 2,
+                    "w": 3,
+                    "x": 0,
+                    "y": 3
+                },
+                "hideTimeOverride": false,
+                "id": 19,
+                "interval": null,
+                "links": [],
+                "mappingType": 1,
+                "mappingTypes": [
+                {
+                    "name": "value to text",
+                    "value": 1
+                },
+                {
+                    "name": "range to text",
+                    "value": 2
+                }
+                ],
+                "maxDataPoints": 100,
+                "nullPointMode": "connected",
+                "nullText": null,
+                "postfix": "",
+                "postfixFontSize": "50%",
+                "prefix": "",
+                "prefixFontSize": "50%",
+                "rangeMaps": [
+                {
+                    "from": "null",
+                    "text": "N/A",
+                    "to": "null"
+                }
+                ],
+                "sparkline": {
+                    "fillColor": "rgba(31, 118, 189, 0.18)",
+                    "full": false,
+                    "lineColor": "rgb(31, 120, 193)",
+                    "show": false
+                },
+                "tableColumn": "",
+                "targets": [
+                {
+                    "expr": "count(up{job=\"olympia\"})",
+                    "format": "time_series",
+                    "interval": "",
+                    "intervalFactor": 2,
+                    "legendFormat": "",
+                    "refId": "A",
+                    "step": 600
+                }
+                ],
+                "thresholds": "",
+                "title": "API Servers Count",
+                "type": "singlestat",
+                "valueFontSize": "80%",
+                "valueMaps": [
+                {
+                    "op": "=",
+                    "text": "0",
+                    "value": "null"
+                }
+                ],
+                "valueName": "current"
+            },
+            {
+                "cacheTimeout": null,
+                "colorBackground": false,
+                "colorValue": true,
+                "colors": [
+                    "rgba(50, 172, 45, 0.97)",
+                    "#5794F2",
+                    "rgba(245, 54, 54, 0.9)"
+                ],
+                "datasource": "Prometheus",
+                "decimals": null,
+                "format": "none",
+                "gauge": {
+                    "maxValue": 100,
+                    "minValue": 0,
+                    "show": false,
+                    "thresholdLabels": false,
+                    "thresholdMarkers": true
+                },
+                "gridPos": {
+                    "h": 2,
+                    "w": 4,
+                    "x": 3,
+                    "y": 3
+                },
+                "id": 35,
+                "interval": null,
+                "links": [],
+                "mappingType": 1,
+                "mappingTypes": [
+                {
+                    "name": "value to text",
+                    "value": 1
+                },
+                {
+                    "name": "range to text",
+                    "value": 2
+                }
+                ],
+                "maxDataPoints": 100,
+                "nullPointMode": "connected",
+                "nullText": null,
+                "postfix": "",
+                "postfixFontSize": "50%",
+                "prefix": "",
+                "prefixFontSize": "50%",
+                "rangeMaps": [
+                {
+                    "from": "null",
+                    "text": "N/A",
+                    "to": "null"
+                }
+                ],
+                "sparkline": {
+                    "fillColor": "rgba(31, 118, 189, 0.18)",
+                    "full": false,
+                    "lineColor": "rgb(31, 120, 193)",
+                    "show": false
+                },
+                "tableColumn": "",
+                "targets": [
+                {
+                    "expr": "apiserver_longrunning_gauge{resource=\"topologyentities\",verb=\"WATCH\", job=\"olympia\",instance=\"$instance\"}",
+                    "format": "time_series",
+                    "hide": false,
+                    "intervalFactor": 2,
+                    "legendFormat": "",
+                    "refId": "A",
+                    "step": 600
+                }
+                ],
+                "thresholds": "",
+                "title": "Topology Watchers",
+                "type": "singlestat",
+                "valueFontSize": "80%",
+                "valueMaps": [
+                {
+                    "op": "=",
+                    "text": "0",
+                    "value": "null"
+                }
+                ],
+                "valueName": "current"
+            },
+            {
+                "cacheTimeout": null,
+                "colorBackground": false,
+                "colorValue": true,
+                "colors": [
+                    "rgba(50, 172, 45, 0.97)",
+                    "#5794F2",
+                    "rgba(245, 54, 54, 0.9)"
+                ],
+                "datasource": "Prometheus",
+                "decimals": null,
+                "format": "none",
+                "gauge": {
+                    "maxValue": 100,
+                    "minValue": 0,
+                    "show": false,
+                    "thresholdLabels": false,
+                    "thresholdMarkers": true
+                },
+                "gridPos": {
+                    "h": 2,
+                    "w": 4,
+                    "x": 7,
+                    "y": 3
+                },
+                "id": 43,
+                "interval": null,
+                "links": [],
+                "mappingType": 1,
+                "mappingTypes": [
+                {
+                    "name": "value to text",
+                    "value": 1
+                },
+                {
+                    "name": "range to text",
+                    "value": 2
+                }
+                ],
+                "maxDataPoints": 100,
+                "nullPointMode": "connected",
+                "nullText": null,
+                "postfix": "",
+                "postfixFontSize": "50%",
+                "prefix": "",
+                "prefixFontSize": "50%",
+                "rangeMaps": [
+                {
+                    "from": "null",
+                    "text": "N/A",
+                    "to": "null"
+                }
+                ],
+                "sparkline": {
+                    "fillColor": "rgba(31, 118, 189, 0.18)",
+                    "full": false,
+                    "lineColor": "rgb(31, 120, 193)",
+                    "show": false
+                },
+                "tableColumn": "",
+                "targets": [
+                {
+                    "expr": "apiserver_longrunning_gauge{resource=\"compiledendpointpolicies\",verb=\"WATCH\", job=\"olympia\",instance=\"$instance\"}",
+                    "format": "time_series",
+                    "hide": false,
+                    "intervalFactor": 2,
+                    "legendFormat": "",
+                    "refId": "A",
+                    "step": 600
+                }
+                ],
+                "thresholds": "",
+                "title": "Compiled Policy Watchers",
+                "type": "singlestat",
+                "valueFontSize": "80%",
+                "valueMaps": [
+                {
+                    "op": "=",
+                    "text": "0",
+                    "value": "null"
+                }
+                ],
+                "valueName": "current"
+            },
+            {
+                "cacheTimeout": null,
+                "colorBackground": false,
+                "colorValue": true,
+                "colors": [
+                    "rgba(50, 172, 45, 0.97)",
+                    "#CA95E5",
+                    "rgba(245, 54, 54, 0.9)"
+                ],
+                "datasource": "Prometheus",
+                "decimals": null,
+                "format": "none",
+                "gauge": {
+                    "maxValue": 100,
+                    "minValue": 0,
+                    "show": false,
+                    "thresholdLabels": false,
+                    "thresholdMarkers": true
+                },
+                "gridPos": {
+                    "h": 2,
+                    "w": 3,
+                    "x": 14,
+                    "y": 3
+                },
+                "id": 55,
+                "interval": null,
+                "links": [],
+                "mappingType": 1,
+                "mappingTypes": [
+                {
+                    "name": "value to text",
+                    "value": 1
+                },
+                {
+                    "name": "range to text",
+                    "value": 2
+                }
+                ],
+                "maxDataPoints": 100,
+                "nullPointMode": "connected",
+                "nullText": null,
+                "postfix": "",
+                "postfixFontSize": "50%",
+                "prefix": "",
+                "prefixFontSize": "50%",
+                "rangeMaps": [
+                {
+                    "from": "null",
+                    "text": "N/A",
+                    "to": "null"
+                }
+                ],
+                "sparkline": {
+                    "fillColor": "rgba(31, 118, 189, 0.18)",
+                    "full": false,
+                    "lineColor": "rgb(31, 120, 193)",
+                    "show": false
+                },
+                "tableColumn": "",
+                "targets": [
+                {
+                    "expr": "apiserver_longrunning_gauge{resource=\"reputationfeeds\",verb=\"WATCH\", job=\"olympia\",instance=\"$instance\"}",
+                    "format": "time_series",
+                    "hide": false,
+                    "intervalFactor": 2,
+                    "legendFormat": "",
+                    "refId": "A",
+                    "step": 600
+                }
+                ],
+                "thresholds": "",
+                "title": "Reputation Feed Watchers",
+                "type": "singlestat",
+                "valueFontSize": "80%",
+                "valueMaps": [
+                {
+                    "op": "=",
+                    "text": "0",
+                    "value": "null"
+                }
+                ],
+                "valueName": "current"
+            },
+            {
+                "cacheTimeout": null,
+                "colorBackground": false,
+                "colorValue": true,
+                "colors": [
+                    "rgba(50, 172, 45, 0.97)",
+                    "#CA95E5",
+                    "rgba(245, 54, 54, 0.9)"
+                ],
+                "datasource": "Prometheus",
+                "decimals": null,
+                "description": "#Agents",
+                "format": "none",
+                "gauge": {
+                    "maxValue": 100,
+                    "minValue": 0,
+                    "show": false,
+                    "thresholdLabels": false,
+                    "thresholdMarkers": true
+                },
+                "gridPos": {
+                    "h": 2,
+                    "w": 3,
+                    "x": 17,
+                    "y": 3
+                },
+                "id": 58,
+                "interval": null,
+                "links": [],
+                "mappingType": 1,
+                "mappingTypes": [
+                {
+                    "name": "value to text",
+                    "value": 1
+                },
+                {
+                    "name": "range to text",
+                    "value": 2
+                }
+                ],
+                "maxDataPoints": 100,
+                "nullPointMode": "connected",
+                "nullText": null,
+                "postfix": "",
+                "postfixFontSize": "50%",
+                "prefix": "",
+                "prefixFontSize": "50%",
+                "rangeMaps": [
+                {
+                    "from": "null",
+                    "text": "N/A",
+                    "to": "null"
+                }
+                ],
+                "sparkline": {
+                    "fillColor": "rgba(31, 118, 189, 0.18)",
+                    "full": false,
+                    "lineColor": "rgb(31, 120, 193)",
+                    "show": false
+                },
+                "tableColumn": "",
+                "targets": [
+                {
+                    "expr": "apiserver_longrunning_gauge{resource=\"reputationmonitoringpolicies\",verb=\"WATCH\", job=\"olympia\", instance=\"$instance\"}",
+                    "format": "time_series",
+                    "hide": false,
+                    "intervalFactor": 2,
+                    "legendFormat": "",
+                    "refId": "A",
+                    "step": 600
+                }
+                ],
+                "thresholds": "",
+                "title": "Reputation Policy Watchers",
+                "type": "singlestat",
+                "valueFontSize": "80%",
+                "valueMaps": [
+                {
+                    "op": "=",
+                    "text": "0",
+                    "value": "null"
+                }
+                ],
+                "valueName": "current"
+            },
+            {
+                "cacheTimeout": null,
+                "colorBackground": false,
+                "colorValue": true,
+                "colors": [
+                    "rgba(50, 172, 45, 0.97)",
+                    "rgba(237, 129, 40, 0.89)",
+                    "rgba(245, 54, 54, 0.9)"
+                ],
+                "datasource": "Prometheus",
+                "decimals": null,
+                "description": "",
+                "format": "ns",
+                "gauge": {
+                    "maxValue": 100,
+                    "minValue": 0,
+                    "show": false,
+                    "thresholdLabels": false,
+                    "thresholdMarkers": true
+                },
+                "gridPos": {
+                    "h": 2,
+                    "w": 4,
+                    "x": 20,
+                    "y": 3
+                },
+                "id": 32,
+                "interval": null,
+                "links": [],
+                "mappingType": 1,
+                "mappingTypes": [
+                {
+                    "name": "value to text",
+                    "value": 1
+                },
+                {
+                    "name": "range to text",
+                    "value": 2
+                }
+                ],
+                "maxDataPoints": 100,
+                "nullPointMode": "connected",
+                "nullText": null,
+                "postfix": "",
+                "postfixFontSize": "50%",
+                "prefix": "",
+                "prefixFontSize": "50%",
+                "rangeMaps": [
+                {
+                    "from": "null",
+                    "text": "N/A",
+                    "to": "null"
+                }
+                ],
+                "sparkline": {
+                    "fillColor": "rgba(31, 118, 189, 0.18)",
+                    "full": false,
+                    "lineColor": "rgb(31, 120, 193)",
+                    "show": false
+                },
+                "tableColumn": "",
+                "targets": [
+                {
+                    "expr": "max (rate(apiserver_request_latencies_summary_sum{verb!=\"WATCH\", job=\"olympia\"}[1h]))  / \nmax (rate(apiserver_request_latencies_summary_count{verb!=\"WATCH\", job=\"olympia\"}[1h]))",
+                    "format": "time_series",
+                    "hide": false,
+                    "intervalFactor": 2,
+                    "legendFormat": "",
+                    "refId": "A",
+                    "step": 600
+                }
+                ],
+                "thresholds": "100000,200000",
+                "title": "Max API Latency (non WATCH)  [1h]",
+                "type": "singlestat",
+                "valueFontSize": "80%",
+                "valueMaps": [
+                {
+                    "op": "=",
+                    "text": "0",
+                    "value": "null"
+                }
+                ],
+                "valueName": "current"
+            },
+            {
+                "cacheTimeout": null,
+                "colorBackground": false,
+                "colorValue": false,
+                "colors": [
+                    "rgba(245, 54, 54, 0.9)",
+                    "rgba(237, 129, 40, 0.89)",
+                    "rgba(50, 172, 45, 0.97)"
+                ],
+                "datasource": "Prometheus",
+                "decimals": null,
+                "format": "percent",
+                "gauge": {
+                    "maxValue": 100,
+                    "minValue": 0,
+                    "show": true,
+                    "thresholdLabels": false,
+                    "thresholdMarkers": true
+                },
+                "gridPos": {
+                    "h": 3,
+                    "w": 3,
+                    "x": 0,
+                    "y": 5
+                },
+                "id": 1,
+                "interval": null,
+                "links": [],
+                "mappingType": 1,
+                "mappingTypes": [
+                {
+                    "name": "value to text",
+                    "value": 1
+                },
+                {
+                    "name": "range to text",
+                    "value": 2
+                }
+                ],
+                "maxDataPoints": 100,
+                "nullPointMode": "connected",
+                "nullText": null,
+                "postfix": "",
+                "postfixFontSize": "50%",
+                "prefix": "",
+                "prefixFontSize": "50%",
+                "rangeMaps": [
+                {
+                    "from": "null",
+                    "text": "N/A",
+                    "to": "null"
+                }
+                ],
+                "sparkline": {
+                    "fillColor": "rgba(31, 118, 189, 0.18)",
+                    "full": false,
+                    "lineColor": "rgb(31, 120, 193)",
+                    "show": false
+                },
+                "tableColumn": "",
+                "targets": [
+                {
+                    "expr": "(sum(up{job=\"olympia\"} == 1) / count(up{job=\"olympia\"})) * 100",
+                    "format": "time_series",
+                    "hide": false,
+                    "interval": "",
+                    "intervalFactor": 2,
+                    "legendFormat": "",
+                    "refId": "A",
+                    "step": 600
+                }
+                ],
+                "thresholds": "50,80",
+                "title": "API Servers UP",
+                "type": "singlestat",
+                "valueFontSize": "80%",
+                "valueMaps": [
+                {
+                    "op": "=",
+                    "text": "N/A",
+                    "value": "null"
+                }
+                ],
+                "valueName": "current"
+            },
+            {
+                "cacheTimeout": null,
+                "colorBackground": false,
+                "colorValue": true,
+                "colors": [
+                    "rgba(245, 54, 54, 0.9)",
+                    "#5794F2",
+                    "rgba(50, 172, 45, 0.97)"
+                ],
+                "datasource": "Prometheus",
+                "decimals": null,
+                "format": "ns",
+                "gauge": {
+                    "maxValue": 100,
+                    "minValue": 0,
+                    "show": false,
+                    "thresholdLabels": false,
+                    "thresholdMarkers": true
+                },
+                "gridPos": {
+                    "h": 3,
+                    "w": 4,
+                    "x": 3,
+                    "y": 5
+                },
+                "id": 52,
+                "interval": null,
+                "links": [],
+                "mappingType": 1,
+                "mappingTypes": [
+                {
+                    "name": "value to text",
+                    "value": 1
+                },
+                {
+                    "name": "range to text",
+                    "value": 2
+                }
+                ],
+                "maxDataPoints": 100,
+                "nullPointMode": "connected",
+                "nullText": null,
+                "postfix": "",
+                "postfixFontSize": "50%",
+                "prefix": "",
+                "prefixFontSize": "50%",
+                "rangeMaps": [
+                {
+                    "from": "null",
+                    "text": "N/A",
+                    "to": "null"
+                }
+                ],
+                "sparkline": {
+                    "fillColor": "rgba(31, 118, 189, 0.18)",
+                    "full": false,
+                    "lineColor": "rgb(31, 120, 193)",
+                    "show": false
+                },
+                "tableColumn": "",
+                "targets": [
+                {
+                    "expr": "avg (rate(apiserver_request_latencies_summary_sum{resource=\"topologyentities\", verb=\"WATCH\", job=\"olympia\"}[1h]))  / \navg (rate(apiserver_request_latencies_summary_count{resource=\"topologyentities\", verb=\"WATCH\", job=\"olympia\"}[1h]))",
+                    "format": "time_series",
+                    "hide": false,
+                    "intervalFactor": 2,
+                    "legendFormat": "",
+                    "refId": "A",
+                    "step": 600
+                }
+                ],
+                "thresholds": "",
+                "title": "Topology API Latency (Avg)",
+                "type": "singlestat",
+                "valueFontSize": "80%",
+                "valueMaps": [
+                {
+                    "op": "=",
+                    "text": "0",
+                    "value": "null"
+                }
+                ],
+                "valueName": "current"
+            },
+            {
+                "cacheTimeout": null,
+                "colorBackground": false,
+                "colorValue": true,
+                "colors": [
+                    "rgba(245, 54, 54, 0.9)",
+                    "#5794F2",
+                    "rgba(50, 172, 45, 0.97)"
+                ],
+                "datasource": "Prometheus",
+                "decimals": null,
+                "format": "ns",
+                "gauge": {
+                    "maxValue": 100,
+                    "minValue": 0,
+                    "show": false,
+                    "thresholdLabels": false,
+                    "thresholdMarkers": true
+                },
+                "gridPos": {
+                    "h": 3,
+                    "w": 4,
+                    "x": 7,
+                    "y": 5
+                },
+                "id": 53,
+                "interval": null,
+                "links": [],
+                "mappingType": 1,
+                "mappingTypes": [
+                {
+                    "name": "value to text",
+                    "value": 1
+                },
+                {
+                    "name": "range to text",
+                    "value": 2
+                }
+                ],
+                "maxDataPoints": 100,
+                "nullPointMode": "connected",
+                "nullText": null,
+                "postfix": "",
+                "postfixFontSize": "50%",
+                "prefix": "",
+                "prefixFontSize": "50%",
+                "rangeMaps": [
+                {
+                    "from": "null",
+                    "text": "N/A",
+                    "to": "null"
+                }
+                ],
+                "sparkline": {
+                    "fillColor": "rgba(31, 118, 189, 0.18)",
+                    "full": false,
+                    "lineColor": "rgb(31, 120, 193)",
+                    "show": false
+                },
+                "tableColumn": "",
+                "targets": [
+                {
+                    "expr": "avg (rate(apiserver_request_latencies_summary_sum{resource=\"compiledendpointpolicies\", verb=\"WATCH\", job=\"olympia\"}[1h]))  / \navg (rate(apiserver_request_latencies_summary_count{resource=\"compiledendpointpolicies\", verb=\"WATCH\", job=\"olympia\"}[1h]))",
+                    "format": "time_series",
+                    "hide": false,
+                    "intervalFactor": 2,
+                    "legendFormat": "",
+                    "refId": "A",
+                    "step": 600
+                }
+                ],
+                "thresholds": "",
+                "title": "Compiled Policy API Latency (Avg)",
+                "type": "singlestat",
+                "valueFontSize": "80%",
+                "valueMaps": [
+                {
+                    "op": "=",
+                    "text": "0",
+                    "value": "null"
+                }
+                ],
+                "valueName": "current"
+            },
+            {
+                "cacheTimeout": null,
+                "colorBackground": false,
+                "colorValue": true,
+                "colors": [
+                    "rgba(245, 54, 54, 0.9)",
+                    "rgba(237, 129, 40, 0.89)",
+                    "rgba(50, 172, 45, 0.97)"
+                ],
+                "datasource": "Prometheus",
+                "decimals": null,
+                "format": "bytes",
+                "gauge": {
+                    "maxValue": 100,
+                    "minValue": 0,
+                    "show": false,
+                    "thresholdLabels": false,
+                    "thresholdMarkers": true
+                },
+                "gridPos": {
+                    "h": 3,
+                    "w": 3,
+                    "x": 11,
+                    "y": 5
+                },
+                "id": 51,
+                "interval": null,
+                "links": [],
+                "mappingType": 1,
+                "mappingTypes": [
+                {
+                    "name": "value to text",
+                    "value": 1
+                },
+                {
+                    "name": "range to text",
+                    "value": 2
+                }
+                ],
+                "maxDataPoints": 100,
+                "nullPointMode": "connected",
+                "nullText": null,
+                "postfix": "",
+                "postfixFontSize": "50%",
+                "prefix": "",
+                "prefixFontSize": "50%",
+                "rangeMaps": [
+                {
+                    "from": "null",
+                    "text": "N/A",
+                    "to": "null"
+                }
+                ],
+                "sparkline": {
+                    "fillColor": "rgba(31, 118, 189, 0.18)",
+                    "full": false,
+                    "lineColor": "rgb(31, 120, 193)",
+                    "show": false
+                },
+                "tableColumn": "",
+                "targets": [
+                {
+                    "expr": "sum(container_memory_usage_bytes{job=\"kubelet\", namespace=\"alcide\", container_name=\"olympia\"})",
+                    "format": "time_series",
+                    "hide": false,
+                    "interval": "",
+                    "intervalFactor": 2,
+                    "legendFormat": "",
+                    "refId": "A",
+                    "step": 600
+                }
+                ],
+                "thresholds": "500,1000",
+                "title": "Memory In Use",
+                "type": "singlestat",
+                "valueFontSize": "80%",
+                "valueMaps": [
+                {
+                    "op": "=",
+                    "text": "N/A",
+                    "value": "null"
+                }
+                ],
+                "valueName": "current"
+            },
+            {
+                "cacheTimeout": null,
+                "colorBackground": false,
+                "colorValue": true,
+                "colors": [
+                    "rgba(245, 54, 54, 0.9)",
+                    "#CA95E5",
+                    "rgba(50, 172, 45, 0.97)"
+                ],
+                "datasource": "Prometheus",
+                "decimals": null,
+                "format": "ns",
+                "gauge": {
+                    "maxValue": 100,
+                    "minValue": 0,
+                    "show": false,
+                    "thresholdLabels": false,
+                    "thresholdMarkers": true
+                },
+                "gridPos": {
+                    "h": 3,
+                    "w": 3,
+                    "x": 14,
+                    "y": 5
+                },
+                "id": 56,
+                "interval": null,
+                "links": [],
+                "mappingType": 1,
+                "mappingTypes": [
+                {
+                    "name": "value to text",
+                    "value": 1
+                },
+                {
+                    "name": "range to text",
+                    "value": 2
+                }
+                ],
+                "maxDataPoints": 100,
+                "nullPointMode": "connected",
+                "nullText": null,
+                "postfix": "",
+                "postfixFontSize": "50%",
+                "prefix": "",
+                "prefixFontSize": "50%",
+                "rangeMaps": [
+                {
+                    "from": "null",
+                    "text": "N/A",
+                    "to": "null"
+                }
+                ],
+                "sparkline": {
+                    "fillColor": "rgba(31, 118, 189, 0.18)",
+                    "full": false,
+                    "lineColor": "rgb(31, 120, 193)",
+                    "show": false
+                },
+                "tableColumn": "",
+                "targets": [
+                {
+                    "expr": "avg (rate(apiserver_request_latencies_summary_sum{resource=\"reputationfeeds\", verb=\"WATCH\", job=\"olympia\"}[1h]))  / \navg (rate(apiserver_request_latencies_summary_count{resource=\"reputationfeeds\", verb=\"WATCH\", job=\"olympia\"}[1h]))",
+                    "format": "time_series",
+                    "hide": false,
+                    "intervalFactor": 2,
+                    "legendFormat": "",
+                    "refId": "A",
+                    "step": 600
+                }
+                ],
+                "thresholds": "",
+                "title": "Reputation Feeds API Latency (Avg)",
+                "type": "singlestat",
+                "valueFontSize": "80%",
+                "valueMaps": [
+                {
+                    "op": "=",
+                    "text": "0",
+                    "value": "null"
+                }
+                ],
+                "valueName": "current"
+            },
+            {
+                "cacheTimeout": null,
+                "colorBackground": false,
+                "colorValue": true,
+                "colors": [
+                    "rgba(245, 54, 54, 0.9)",
+                    "#CA95E5",
+                    "rgba(50, 172, 45, 0.97)"
+                ],
+                "datasource": "Prometheus",
+                "decimals": null,
+                "description": "How fast feeds sync to agents",
+                "format": "ns",
+                "gauge": {
+                    "maxValue": 100,
+                    "minValue": 0,
+                    "show": false,
+                    "thresholdLabels": false,
+                    "thresholdMarkers": true
+                },
+                "gridPos": {
+                    "h": 3,
+                    "w": 3,
+                    "x": 17,
+                    "y": 5
+                },
+                "id": 59,
+                "interval": null,
+                "links": [],
+                "mappingType": 1,
+                "mappingTypes": [
+                {
+                    "name": "value to text",
+                    "value": 1
+                },
+                {
+                    "name": "range to text",
+                    "value": 2
+                }
+                ],
+                "maxDataPoints": 100,
+                "nullPointMode": "connected",
+                "nullText": null,
+                "postfix": "",
+                "postfixFontSize": "50%",
+                "prefix": "",
+                "prefixFontSize": "50%",
+                "rangeMaps": [
+                {
+                    "from": "null",
+                    "text": "N/A",
+                    "to": "null"
+                }
+                ],
+                "sparkline": {
+                    "fillColor": "rgba(31, 118, 189, 0.18)",
+                    "full": false,
+                    "lineColor": "rgb(31, 120, 193)",
+                    "show": false
+                },
+                "tableColumn": "",
+                "targets": [
+                {
+                    "expr": "avg (rate(apiserver_request_latencies_summary_sum{resource=\"reputationmonitoringpolicies\", verb=\"WATCH\", job=\"olympia\"}[1h]))  / \navg (rate(apiserver_request_latencies_summary_count{resource=\"reputationmonitoringpolicies\", verb=\"WATCH\", job=\"olympia\"}[1h]))",
+                    "format": "time_series",
+                    "hide": false,
+                    "intervalFactor": 2,
+                    "legendFormat": "",
+                    "refId": "A",
+                    "step": 600
+                }
+                ],
+                "thresholds": "",
+                "title": "Reputation Policy Sync Latency (Avg)",
+                "type": "singlestat",
+                "valueFontSize": "80%",
+                "valueMaps": [
+                {
+                    "op": "=",
+                    "text": "0",
+                    "value": "null"
+                }
+                ],
+                "valueName": "current"
+            },
+            {
+                "cacheTimeout": null,
+                "colorBackground": false,
+                "colorValue": true,
+                "colors": [
+                    "rgba(245, 54, 54, 0.9)",
+                    "rgba(237, 129, 40, 0.89)",
+                    "rgba(50, 172, 45, 0.97)"
+                ],
+                "datasource": "Prometheus",
+                "decimals": null,
+                "description": "",
+                "format": "ns",
+                "gauge": {
+                    "maxValue": 100,
+                    "minValue": 0,
+                    "show": false,
+                    "thresholdLabels": false,
+                    "thresholdMarkers": true
+                },
+                "gridPos": {
+                    "h": 3,
+                    "w": 4,
+                    "x": 20,
+                    "y": 5
+                },
+                "id": 57,
+                "interval": null,
+                "links": [],
+                "mappingType": 1,
+                "mappingTypes": [
+                {
+                    "name": "value to text",
+                    "value": 1
+                },
+                {
+                    "name": "range to text",
+                    "value": 2
+                }
+                ],
+                "maxDataPoints": 100,
+                "nullPointMode": "connected",
+                "nullText": null,
+                "postfix": "",
+                "postfixFontSize": "50%",
+                "prefix": "",
+                "prefixFontSize": "50%",
+                "rangeMaps": [
+                {
+                    "from": "null",
+                    "text": "N/A",
+                    "to": "null"
+                }
+                ],
+                "sparkline": {
+                    "fillColor": "rgba(31, 118, 189, 0.18)",
+                    "full": false,
+                    "lineColor": "rgb(31, 120, 193)",
+                    "show": false
+                },
+                "tableColumn": "",
+                "targets": [
+                {
+                    "expr": "max (rate(apiserver_request_latencies_summary_sum{verb=\"WATCH\", job=\"olympia\"}[1h]))  / \nmax (rate(apiserver_request_latencies_summary_count{verb=\"WATCH\", job=\"olympia\"}[1h]))",
+                    "format": "time_series",
+                    "hide": false,
+                    "intervalFactor": 2,
+                    "legendFormat": "",
+                    "refId": "A",
+                    "step": 600
+                }
+                ],
+                "thresholds": "100000,200000",
+                "title": "Max API Latency (WATCH)  [1h]",
+                "type": "singlestat",
+                "valueFontSize": "80%",
+                "valueMaps": [
+                {
+                    "op": "=",
+                    "text": "0",
+                    "value": "null"
+                }
+                ],
+                "valueName": "current"
+            },
+            {
+                "collapsed": false,
+                "gridPos": {
+                    "h": 1,
+                    "w": 24,
+                    "x": 0,
+                    "y": 8
+                },
+                "id": 47,
+                "panels": [],
+                "title": "Saturation",
+                "type": "row"
+            },
+            {
+                "aliasColors": {},
+                "bars": false,
+                "dashLength": 10,
+                "dashes": false,
+                "datasource": "Prometheus",
+                "fill": 2,
+                "gridPos": {
+                    "h": 5,
+                    "w": 11,
+                    "x": 0,
+                    "y": 9
+                },
+                "id": 37,
+                "legend": {
+                    "avg": false,
+                    "current": false,
+                    "max": false,
+                    "min": false,
+                    "show": true,
+                    "total": false,
+                    "values": false
+                },
+                "lines": true,
+                "linewidth": 1,
+                "links": [],
+                "nullPointMode": "null as zero",
+                "paceLength": 10,
+                "percentage": false,
+                "pointradius": 5,
+                "points": false,
+                "renderer": "flot",
+                "seriesOverrides": [],
+                "spaceLength": 10,
+                "stack": true,
+                "steppedLine": false,
+                "targets": [
+                {
+                    "expr": "sum(namespace_pod_name_container_name:container_cpu_usage_seconds_total:sum_rate{namespace=\"alcide\", pod_name=~\"olympia.*\"}) by (pod_name)",
+                    "format": "time_series",
+                    "hide": false,
+                    "intervalFactor": 2,
+                    "legendFormat": "{{`{{pod_name}}`}}",
+                    "legendLink": null,
+                    "refId": "A",
+                    "step": 10
+                },
+                {
+                    "expr": "",
+                    "format": "time_series",
+                    "intervalFactor": 1,
+                    "refId": "B"
+                }
+                ],
+                "thresholds": [],
+                "timeFrom": null,
+                "timeRegions": [],
+                "timeShift": null,
+                "title": "CPU",
+                "tooltip": {
+                    "shared": true,
+                    "sort": 0,
+                    "value_type": "individual"
+                },
+                "type": "graph",
+                "xaxis": {
+                    "buckets": null,
+                    "mode": "time",
+                    "name": null,
+                    "show": true,
+                    "values": []
+                },
+                "yaxes": [
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": 0,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+                ],
+                "yaxis": {
+                    "align": false,
+                    "alignLevel": null
+                }
+            },
+            {
+                "aliasColors": {},
+                "bars": false,
+                "dashLength": 10,
+                "dashes": false,
+                "fill": 1,
+                "gridPos": {
+                    "h": 5,
+                    "w": 13,
+                    "x": 11,
+                    "y": 9
+                },
+                "id": 40,
+                "legend": {
+                    "alignAsTable": true,
+                    "avg": true,
+                    "current": true,
+                    "max": true,
+                    "min": true,
+                    "rightSide": false,
+                    "show": true,
+                    "total": false,
+                    "values": true
+                },
+                "lines": true,
+                "linewidth": 1,
+                "links": [],
+                "nullPointMode": "null",
+                "paceLength": 10,
+                "percentage": false,
+                "pointradius": 5,
+                "points": false,
+                "renderer": "flot",
+                "repeat": null,
+                "seriesOverrides": [],
+                "spaceLength": 10,
+                "stack": false,
+                "steppedLine": false,
+                "targets": [
+                {
+                    "expr": "container_memory_usage_bytes{job=\"kubelet\", namespace=\"alcide\", container_name=\"olympia\"}",
+                    "format": "time_series",
+                    "hide": false,
+                    "instant": false,
+                    "intervalFactor": 2,
+                    "legendFormat": "Current: {{`{{pod_name}}`}}",
+                    "refId": "A"
+                },
+                {
+                    "expr": "kube_pod_container_resource_requests_memory_bytes{job=\"kube-state-metrics\", namespace=\"alcide\", container=\"olympia\"}",
+                    "format": "time_series",
+                    "hide": false,
+                    "intervalFactor": 2,
+                    "legendFormat": "Requested: {{`{{pod}}`}}",
+                    "refId": "B"
+                },
+                {
+                    "expr": "kube_pod_container_resource_limits_memory_bytes{job=\"kube-state-metrics\", namespace=\"alcide\", container=\"olympia\"}",
+                    "format": "time_series",
+                    "hide": false,
+                    "intervalFactor": 2,
+                    "legendFormat": "Limit: {{`{{pod}}`}}",
+                    "refId": "C"
+                }
+                ],
+                "thresholds": [],
+                "timeFrom": null,
+                "timeRegions": [],
+                "timeShift": null,
+                "title": "Memory Usage",
+                "tooltip": {
+                    "shared": true,
+                    "sort": 0,
+                    "value_type": "individual"
+                },
+                "type": "graph",
+                "xaxis": {
+                    "buckets": null,
+                    "mode": "time",
+                    "name": null,
+                    "show": true,
+                    "values": []
+                },
+                "yaxes": [
+                {
+                    "format": "bytes",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": 0,
+                    "show": true
+                },
+                {
+                    "format": "bytes",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": 0,
+                    "show": true
+                }
+                ],
+                "yaxis": {
+                    "align": false,
+                    "alignLevel": null
+                }
+            },
+            {
+                "aliasColors": {},
+                "bars": false,
+                "dashLength": 10,
+                "dashes": false,
+                "datasource": "Prometheus",
+                "decimals": 2,
+                "editable": true,
+                "error": false,
+                "fill": 0,
+                "grid": {},
+                "gridPos": {
+                    "h": 6,
+                    "w": 15,
+                    "x": 0,
+                    "y": 14
+                },
+                "height": "",
+                "id": 15,
+                "legend": {
+                    "alignAsTable": true,
+                    "avg": true,
+                    "current": true,
+                    "max": true,
+                    "min": false,
+                    "rightSide": true,
+                    "show": true,
+                    "sort": "current",
+                    "sortDesc": true,
+                    "total": false,
+                    "values": true
+                },
+                "lines": true,
+                "linewidth": 2,
+                "links": [],
+                "nullPointMode": "connected",
+                "paceLength": 10,
+                "percentage": false,
+                "pointradius": 5,
+                "points": false,
+                "renderer": "flot",
+                "seriesOverrides": [],
+                "spaceLength": 10,
+                "stack": false,
+                "steppedLine": true,
+                "targets": [
+                {
+                    "expr": "sum by(code) (rate(apiserver_request_count{code!=\"0\", job=\"olympia\"}[5m]))",
+                    "format": "time_series",
+                    "hide": false,
+                    "interval": "10s",
+                    "intervalFactor": 1,
+                    "legendFormat": "{{`{{ code }}`}}",
+                    "metric": "container_cpu",
+                    "refId": "A",
+                    "step": 10
+                }
+                ],
+                "thresholds": [],
+                "timeFrom": null,
+                "timeRegions": [],
+                "timeShift": null,
+                "title": "API Requests (By HTTP CODE)",
+                "tooltip": {
+                    "msResolution": true,
+                    "shared": true,
+                    "sort": 2,
+                    "value_type": "cumulative"
+                },
+                "type": "graph",
+                "xaxis": {
+                    "buckets": null,
+                    "mode": "time",
+                    "name": null,
+                    "show": true,
+                    "values": []
+                },
+                "yaxes": [
+                {
+                    "format": "none",
+                    "label": "",
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+                ],
+                "yaxis": {
+                    "align": false,
+                    "alignLevel": null
+                }
+            },
+            {
+                "aliasColors": {},
+                "bars": false,
+                "dashLength": 10,
+                "dashes": false,
+                "fill": 1,
+                "gridPos": {
+                    "h": 6,
+                    "w": 9,
+                    "x": 15,
+                    "y": 14
+                },
+                "id": 45,
+                "legend": {
+                    "alignAsTable": true,
+                    "avg": false,
+                    "current": true,
+                    "max": true,
+                    "min": false,
+                    "rightSide": false,
+                    "show": true,
+                    "sideWidth": null,
+                    "total": false,
+                    "values": true
+                },
+                "lines": true,
+                "linewidth": 1,
+                "links": [],
+                "nullPointMode": "null",
+                "paceLength": 10,
+                "percentage": false,
+                "pointradius": 2,
+                "points": false,
+                "renderer": "flot",
+                "seriesOverrides": [],
+                "stack": false,
+                "steppedLine": false,
+                "targets": [
+                {
+                    "expr": "apiserver_current_inflight_requests{job=\"olympia\",namespace=\"alcide\",requestKind=\"mutating\"}",
+                    "format": "time_series",
+                    "hide": false,
+                    "interval": "",
+                    "intervalFactor": 1,
+                    "legendFormat": "{{`{{ pod }}`}} (write)",
+                    "refId": "A"
+                },
+                {
+                    "expr": "apiserver_current_inflight_requests{job=\"olympia\",namespace=\"alcide\",requestKind=\"readOnly\"}",
+                    "format": "time_series",
+                    "hide": false,
+                    "interval": "",
+                    "intervalFactor": 1,
+                    "legendFormat": "{{`{{ pod }}`}} (read)",
+                    "refId": "B"
+                }
+                ],
+                "thresholds": [],
+                "timeFrom": null,
+                "timeRegions": [],
+                "timeShift": null,
+                "title": "Inflight Requests",
+                "tooltip": {
+                    "shared": true,
+                    "sort": 0,
+                    "value_type": "individual"
+                },
+                "type": "graph",
+                "xaxis": {
+                    "buckets": null,
+                    "mode": "time",
+                    "name": null,
+                    "show": true,
+                    "values": []
+                },
+                "yaxes": [
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                }
+                ],
+                "yaxis": {
+                    "align": false,
+                    "alignLevel": null
+                }
+            },
+            {
+                "aliasColors": {},
+                "bars": false,
+                "dashLength": 10,
+                "dashes": false,
+                "datasource": "Prometheus",
+                "decimals": 2,
+                "editable": true,
+                "error": false,
+                "fill": 0,
+                "grid": {},
+                "gridPos": {
+                    "h": 7,
+                    "w": 24,
+                    "x": 0,
+                    "y": 20
+                },
+                "height": "",
+                "id": 34,
+                "legend": {
+                    "alignAsTable": true,
+                    "avg": false,
+                    "current": true,
+                    "max": true,
+                    "min": false,
+                    "rightSide": true,
+                    "show": true,
+                    "sort": "current",
+                    "sortDesc": true,
+                    "total": false,
+                    "values": true
+                },
+                "lines": true,
+                "linewidth": 2,
+                "links": [],
+                "nullPointMode": "connected",
+                "paceLength": 10,
+                "percentage": false,
+                "pointradius": 5,
+                "points": false,
+                "renderer": "flot",
+                "seriesOverrides": [],
+                "spaceLength": 10,
+                "stack": false,
+                "steppedLine": true,
+                "targets": [
+                {
+                    "expr": "apiserver_longrunning_gauge{verb=\"WATCH\" , job=\"olympia\"}",
+                    "format": "time_series",
+                    "hide": false,
+                    "interval": "10s",
+                    "intervalFactor": 1,
+                    "legendFormat": "{{`{{ resource }}`}}{{`{{ verb }}`}}",
+                    "metric": "container_cpu",
+                    "refId": "A",
+                    "step": 10
+                }
+                ],
+                "thresholds": [],
+                "timeFrom": null,
+                "timeRegions": [],
+                "timeShift": null,
+                "title": "Resource Watch Pressure",
+                "tooltip": {
+                    "msResolution": true,
+                    "shared": true,
+                    "sort": 2,
+                    "value_type": "cumulative"
+                },
+                "type": "graph",
+                "xaxis": {
+                    "buckets": null,
+                    "mode": "time",
+                    "name": null,
+                    "show": true,
+                    "values": []
+                },
+                "yaxes": [
+                {
+                    "format": "none",
+                    "label": "",
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+                ],
+                "yaxis": {
+                    "align": false,
+                    "alignLevel": null
+                }
+            },
+            {
+                "collapsed": false,
+                "gridPos": {
+                    "h": 1,
+                    "w": 24,
+                    "x": 0,
+                    "y": 27
+                },
+                "id": 49,
+                "panels": [],
+                "title": "Latency",
+                "type": "row"
+            },
+            {
+                "aliasColors": {},
+                "bars": false,
+                "dashLength": 10,
+                "dashes": false,
+                "datasource": "Prometheus",
+                "decimals": 2,
+                "editable": true,
+                "error": false,
+                "fill": 0,
+                "grid": {},
+                "gridPos": {
+                    "h": 19,
+                    "w": 24,
+                    "x": 0,
+                    "y": 28
+                },
+                "height": "",
+                "id": 31,
+                "legend": {
+                    "alignAsTable": true,
+                    "avg": true,
+                    "current": true,
+                    "max": true,
+                    "min": false,
+                    "rightSide": true,
+                    "show": true,
+                    "sort": "current",
+                    "sortDesc": true,
+                    "total": false,
+                    "values": true
+                },
+                "lines": true,
+                "linewidth": 2,
+                "links": [],
+                "nullPointMode": "connected",
+                "paceLength": 10,
+                "percentage": false,
+                "pointradius": 5,
+                "points": false,
+                "renderer": "flot",
+                "seriesOverrides": [],
+                "spaceLength": 10,
+                "stack": false,
+                "steppedLine": true,
+                "targets": [
+                {
+                    "expr": "max by (resource, verb) (rate(apiserver_request_latencies_summary_sum{verb!~\"CONNECT\" , job=\"olympia\"}[5m]))  / \nmax by (resource, verb) (rate(apiserver_request_latencies_summary_count{verb!~\"CONNECT\" , job=\"olympia\"}[5m]))\n> 10",
+                    "format": "time_series",
+                    "hide": false,
+                    "interval": "10s",
+                    "intervalFactor": 1,
+                    "legendFormat": "{{`{{ resource }}`}}{{`{{ verb }}`}}",
+                    "metric": "container_cpu",
+                    "refId": "A",
+                    "step": 10
+                }
+                ],
+                "thresholds": [],
+                "timeFrom": null,
+                "timeRegions": [],
+                "timeShift": null,
+                "title": "Olympia API Latency",
+                "tooltip": {
+                    "msResolution": true,
+                    "shared": true,
+                    "sort": 2,
+                    "value_type": "cumulative"
+                },
+                "type": "graph",
+                "xaxis": {
+                    "buckets": null,
+                    "mode": "time",
+                    "name": null,
+                    "show": true,
+                    "values": []
+                },
+                "yaxes": [
+                {
+                    "format": "ns",
+                    "label": "",
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+                ],
+                "yaxis": {
+                    "align": false,
+                    "alignLevel": null
+                }
+            }
+            ],
+            "refresh": "30s",
+            "schemaVersion": 18,
+            "style": "dark",
+            "tags": [
+                "Alcide"
+            ],
+            "templating": {
+                "list": [
+                {
+                    "allValue": null,
+                    "current": {
+                        "text": "10.36.3.142:6667",
+                        "value": "10.36.3.142:6667"
+                    },
+                    "datasource": "Prometheus",
+                    "definition": "query_result(etcd_object_counts{endpoint=\"metrics\",job=\"olympia\",namespace=\"alcide\",resource=\"reputationfeeds.diana.alcide.io\",service=\"olympia\"})",
+                    "hide": 0,
+                    "includeAll": false,
+                    "label": "instance",
+                    "multi": false,
+                    "name": "instance",
+                    "options": [
+                    {
+                        "selected": true,
+                        "text": "10.36.3.142:6667",
+                        "value": "10.36.3.142:6667"
+                    }
+                    ],
+                    "query": "query_result(etcd_object_counts{endpoint=\"metrics\",job=\"olympia\",namespace=\"alcide\",resource=\"reputationfeeds.diana.alcide.io\",service=\"olympia\"})",
+                    "refresh": 0,
+                    "regex": "/instance=\"(.*)\",job/",
+                    "skipUrlSync": false,
+                    "sort": 0,
+                    "tagValuesQuery": "",
+                    "tags": [],
+                    "tagsQuery": "",
+                    "type": "query",
+                    "useTags": false
+                }
+                ]
+            },
+            "time": {
+                "from": "now-6h",
+                "to": "now"
+            },
+            "timepicker": {
+                "refresh_intervals": [
+                    "5s",
+                    "10s",
+                    "30s",
+                    "1m",
+                    "5m",
+                    "15m",
+                    "30m",
+                    "1h",
+                    "2h",
+                    "1d"
+                ],
+                "time_options": [
+                    "5m",
+                    "15m",
+                    "1h",
+                    "6h",
+                    "12h",
+                    "24h",
+                    "2d",
+                    "7d",
+                    "30d"
+                ]
+            },
+            "timezone": "",
+            "title": "Olympia",
+            "uid": "6663Qsgmz",
+            "version": 47
+        }
