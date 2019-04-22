@@ -28,8 +28,7 @@ data:
             "editable": true,
             "gnetId": 9878,
             "graphTooltip": 0,
-            "id": 33,
-            "iteration": 1555850726847,
+            "iteration": 1555904057513,
             "links": [],
             "panels": [
             {
@@ -201,7 +200,7 @@ data:
                 "tableColumn": "",
                 "targets": [
                 {
-                    "expr": "etcd_object_counts{resource=\"TopologyEntities.olympus.alcide.io\",job=\"olympia\",instance=\"$instance\"}",
+                    "expr": "sum(etcd_object_counts{resource=\"TopologyEntities.olympus.alcide.io\",job=\"olympia\"})/count(etcd_object_counts{resource=\"TopologyEntities.olympus.alcide.io\",job=\"olympia\"})",
                     "format": "time_series",
                     "hide": false,
                     "intervalFactor": 2,
@@ -285,7 +284,7 @@ data:
                 "tableColumn": "",
                 "targets": [
                 {
-                    "expr": "etcd_object_counts{resource=\"compiledendpointpolicies.sphere.alcide.io\",job=\"olympia\",instance=\"$instance\"}",
+                    "expr": "sum(etcd_object_counts{resource=\"compiledendpointpolicies.sphere.alcide.io\",job=\"olympia\"})/count(etcd_object_counts{resource=\"compiledendpointpolicies.sphere.alcide.io\",job=\"olympia\"})",
                     "format": "time_series",
                     "hide": false,
                     "intervalFactor": 2,
@@ -454,7 +453,7 @@ data:
                 "tableColumn": "",
                 "targets": [
                 {
-                    "expr": "etcd_object_counts{resource=\"reputationfeeds.diana.alcide.io\",job=\"olympia\",instance=\"$instance\"}",
+                    "expr": "sum(etcd_object_counts{resource=\"reputationfeeds.diana.alcide.io\",job=\"olympia\"})/count(etcd_object_counts{resource=\"reputationfeeds.diana.alcide.io\",job=\"olympia\"})",
                     "format": "time_series",
                     "hide": false,
                     "intervalFactor": 2,
@@ -707,7 +706,7 @@ data:
                 "tableColumn": "",
                 "targets": [
                 {
-                    "expr": "apiserver_longrunning_gauge{resource=\"topologyentities\",verb=\"WATCH\", job=\"olympia\",instance=\"$instance\"}",
+                    "expr": "sum(apiserver_longrunning_gauge{resource=\"topologyentities\",verb=\"WATCH\", job=\"olympia\"})/count(apiserver_longrunning_gauge{resource=\"topologyentities\",verb=\"WATCH\", job=\"olympia\"})",
                     "format": "time_series",
                     "hide": false,
                     "intervalFactor": 2,
@@ -791,7 +790,7 @@ data:
                 "tableColumn": "",
                 "targets": [
                 {
-                    "expr": "apiserver_longrunning_gauge{resource=\"compiledendpointpolicies\",verb=\"WATCH\", job=\"olympia\",instance=\"$instance\"}",
+                    "expr": "sum(apiserver_longrunning_gauge{resource=\"compiledendpointpolicies\",verb=\"WATCH\", job=\"olympia\"})/count(apiserver_longrunning_gauge{resource=\"compiledendpointpolicies\",verb=\"WATCH\", job=\"olympia\"})",
                     "format": "time_series",
                     "hide": false,
                     "intervalFactor": 2,
@@ -875,7 +874,7 @@ data:
                 "tableColumn": "",
                 "targets": [
                 {
-                    "expr": "apiserver_longrunning_gauge{resource=\"reputationfeeds\",verb=\"WATCH\", job=\"olympia\",instance=\"$instance\"}",
+                    "expr": "sum(apiserver_longrunning_gauge{resource=\"reputationfeeds\",verb=\"WATCH\", job=\"olympia\"})/count(apiserver_longrunning_gauge{resource=\"reputationfeeds\",verb=\"WATCH\", job=\"olympia\"})",
                     "format": "time_series",
                     "hide": false,
                     "intervalFactor": 2,
@@ -960,7 +959,7 @@ data:
                 "tableColumn": "",
                 "targets": [
                 {
-                    "expr": "apiserver_longrunning_gauge{resource=\"reputationmonitoringpolicies\",verb=\"WATCH\", job=\"olympia\", instance=\"$instance\"}",
+                    "expr": "sum(apiserver_longrunning_gauge{resource=\"reputationmonitoringpolicies\",verb=\"WATCH\", job=\"olympia\"})/count(apiserver_longrunning_gauge{resource=\"reputationfeeds\",verb=\"WATCH\", job=\"olympia\"})",
                     "format": "time_series",
                     "hide": false,
                     "intervalFactor": 2,
@@ -1681,7 +1680,7 @@ data:
                 "fill": 2,
                 "gridPos": {
                     "h": 5,
-                    "w": 11,
+                    "w": 12,
                     "x": 0,
                     "y": 9
                 },
@@ -1775,8 +1774,8 @@ data:
                 "fill": 1,
                 "gridPos": {
                     "h": 5,
-                    "w": 13,
-                    "x": 11,
+                    "w": 12,
+                    "x": 12,
                     "y": 9
                 },
                 "id": 40,
@@ -1886,7 +1885,7 @@ data:
                 "grid": {},
                 "gridPos": {
                     "h": 6,
-                    "w": 15,
+                    "w": 12,
                     "x": 0,
                     "y": 14
                 },
@@ -1981,8 +1980,8 @@ data:
                 "fill": 1,
                 "gridPos": {
                     "h": 6,
-                    "w": 9,
-                    "x": 15,
+                    "w": 12,
+                    "x": 12,
                     "y": 14
                 },
                 "id": 45,
@@ -2356,7 +2355,7 @@ data:
                 ]
             },
             "timezone": "",
-            "title": "Alcide /  Olympia",
+            "title": "Alcide / Olympia",
             "uid": "6663Qsgmz",
-            "version": 47
+            "version": 1
         }
