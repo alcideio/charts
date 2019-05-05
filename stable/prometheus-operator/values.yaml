@@ -228,12 +228,21 @@ alertmanager:
           receiver: 'null'
 
         - match_re:
+            severity: critical
+          receiver: 'opsgenie-alcide-rnd'
+
+        - match_re:
             component: agent
           receiver: slack_production_alerts_agent
 
     receivers:
 
       - name: 'null'
+
+      - name: opsgenie-alcide-rnd
+        opsgenie_configs:
+          - api_key: OPS_GENIE
+            teams: Alcide_RnD
 
       - name: slack_production_alerts
         slack_configs:

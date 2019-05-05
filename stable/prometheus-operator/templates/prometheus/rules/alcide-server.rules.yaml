@@ -119,16 +119,6 @@ spec:
             summary: GraphQL request latency
             env: "{{`{{ $labels.environment }}`}}"
 
-      - alert: WebSocketErrorsCount
-        expr: 'increase({__name__=~".+NotificationTaskImpl_webSocket_errors"}[5m]) > 0'
-        labels:
-            severity: error
-            component: server
-        annotations:
-            description: "WebSocket {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
-            summary: WebSocket errors count
-            env: "{{`{{ $labels.environment }}`}}"
-
       - alert: CassandraErrorsCount
         expr: 'increase({__name__=~".+DbStoreImpl_errors"}[5m]) > 0'
         labels:
@@ -181,20 +171,20 @@ spec:
             env: "{{`{{ $labels.environment }}`}}"
 
       - alert: KafkaInventoryLag
-        expr: 'kafka_consumergroup_lag{topic="inventory",consumergroup!~".*e2e.*"} > 2000'
+        expr: 'kafka_consumergroup_lag{topic="inventory",consumergroup!~".*e2e.*"} > 4000'
         for: 10m
         labels:
-            severity: warning
+            severity: critical
             component: server
         annotations:
             description: "kafka lag in topic:{{`{{ $labels.topic }}`}} partition:{{`{{ $labels.partition }}`}} has excedded lag threshold of 2000"
             summary: lag was discovered in topic:{{`{{ $labels.topic }}`}} at partition:{{`{{ $labels.partition }}`}}
 
       - alert: KafkaComponentsActivityLag
-        expr: 'kafka_consumergroup_lag{topic="components-activity",consumergroup!~".*e2e.*"} > 2000'
+        expr: 'kafka_consumergroup_lag{topic="components-activity",consumergroup!~".*e2e.*"} > 10000'
         for: 10m
         labels:
-            severity: warning
+            severity: critical
             component: server
         annotations:
             description: "kafka lag in topic:{{`{{ $labels.topic }}`}} partition:{{`{{ $labels.partition }}`}} has excedded lag threshold of 2000"
@@ -204,7 +194,7 @@ spec:
         expr: 'kafka_consumergroup_lag{topic="netactivity",consumergroup!~".*e2e.*"} > 30000'
         for: 10m
         labels:
-            severity: warning
+            severity: critical
             component: server
         annotations:
             description: "kafka lag in topic:{{`{{ $labels.topic }}`}} partition:{{`{{ $labels.partition }}`}} has excedded lag threshold of 2000"
@@ -216,7 +206,7 @@ spec:
             severity: warning
             component: server
         annotations:
-            description: "kafka consumer group lag in topic:{{`{{ $labels.topic }}`}} at partition:{{`{{ $labels.partition }}`}} has increased by more then 20 message in the last 5 minutes"
+            description: "kafka consumer group lag in topic:{{`{{ $labels.topic }}`}} at partition:{{`{{ $labels.partition }}`}} has increased by more than 20 message in the last 5 minutes"
             summary: consumer group increasing lag was discovered in topic:{{`{{ $labels.topic }}`}} at partition:{{`{{ $labels.partition }}`}}
 
       - alert: KafkaNetActivityLagRate
@@ -225,7 +215,7 @@ spec:
             severity: warning
             component: server
         annotations:
-            description: "kafka consumer group lag in topic:{{`{{ $labels.topic }}`}} at partition:{{`{{ $labels.partition }}`}} has increased by more then 20 message in the last 5 minutes"
+            description: "kafka consumer group lag in topic:{{`{{ $labels.topic }}`}} at partition:{{`{{ $labels.partition }}`}} has increased by more than 20 message in the last 5 minutes"
             summary: consumer group increasing lag was discovered in topic:{{`{{ $labels.topic }}`}} at partition:{{`{{ $labels.partition }}`}}
 
       - alert: KafkaComponentsActivityLagRate
@@ -234,7 +224,7 @@ spec:
             severity: warning
             component: server
         annotations:
-            description: "kafka consumer group lag in topic:{{`{{ $labels.topic }}`}} at partition:{{`{{ $labels.partition }}`}} has increased by more then 20 message in the last 5 minutes"
+            description: "kafka consumer group lag in topic:{{`{{ $labels.topic }}`}} at partition:{{`{{ $labels.partition }}`}} has increased by more than 20 message in the last 5 minutes"
             summary: consumer group increasing lag was discovered in topic:{{`{{ $labels.topic }}`}} at partition:{{`{{ $labels.partition }}`}}
 
       - alert: KafkaUnderReplacatedPartitions

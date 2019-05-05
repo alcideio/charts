@@ -28,12 +28,12 @@ spec:
 
       - alert: NodeCPUUsageCritical
         expr:  'node:node_cpu_utilisation:avg1m * 100 > 90'
-        for: 5m
+        for: 10m
         labels:
           severity: critical
           component: infra
         annotations:
-          summary: "{{`{{$labels.node}}`}}: CPU usage is above 90% for the last 5 minutes"
+          summary: "{{`{{$labels.node}}`}}: CPU usage is above 90% for the last 10 minutes"
           description: "Current CPU usage (Percentage): {{`{{ $value }}`}}"
 
       - alert: NodeMemoryUsageWarning
@@ -48,12 +48,12 @@ spec:
 
       - alert: NodeMemoryUsageCritical
         expr:  'node:node_memory_utilisation: * 100 > 90'
-        for: 5m
+        for: 10m
         labels:
           severity: critical
           component: infra
         annotations:
-          summary: "{{`{{$labels.node}}`}}: memory usage is above 90% for the last 5 minutes"
+          summary: "{{`{{$labels.node}}`}}: memory usage is above 90% for the last 10 minutes"
           description: "Current memory usage (Percentage): {{`{{ $value }}`}}"
 
       - alert: AlcidePodRestart
