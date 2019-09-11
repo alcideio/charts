@@ -738,6 +738,15 @@ kube-state-metrics:
 nodeExporter:
   enabled: true
 
+  tolerations:
+    - effect: NoSchedule
+      key: node-role.kubernetes.io/master
+      operator: Exists
+    - effect: NoExecute
+      operator: Exists
+    - effect: NoSchedule
+      operator: Exists
+
   ## Use the value configured in prometheus-node-exporter.podLabels
   ##
   jobLabel: jobLabel
