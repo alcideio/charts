@@ -738,15 +738,6 @@ kube-state-metrics:
 nodeExporter:
   enabled: true
 
-  tolerations:
-    - effect: NoSchedule
-      key: node-role.kubernetes.io/master
-      operator: Exists
-    - effect: NoExecute
-      operator: Exists
-    - effect: NoSchedule
-      operator: Exists
-
   ## Use the value configured in prometheus-node-exporter.podLabels
   ##
   jobLabel: jobLabel
@@ -764,6 +755,16 @@ nodeExporter:
 ## Configuration for prometheus-node-exporter subchart
 ##
 prometheus-node-exporter:
+
+  tolerations:
+    - effect: NoSchedule
+      key: node-role.kubernetes.io/master
+      operator: Exists
+    - effect: NoExecute
+      operator: Exists
+    - effect: NoSchedule
+      operator: Exists
+
   podLabels:
     ## Add the 'node-exporter' label to be used by serviceMonitor to match standard common usage in rules and grafana dashboards
     ##
