@@ -1514,3 +1514,16 @@ prometheus:
          interval: 30s
          path: /metrics
          scheme: http
+
+   - name: "alcide-dashboard-nginx"
+     selector:
+       matchLabels:
+         metrics: alcide-dashboard-nginx
+     namespaceSelector:
+       matchNames:
+         - "alcide"
+     endpoints:
+       - port: metrics
+         interval: 30s
+         path: /metrics
+         scheme: http
