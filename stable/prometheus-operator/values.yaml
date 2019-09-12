@@ -1502,3 +1502,15 @@ prometheus:
          tlsConfig:
            insecureSkipVerify: true
 
+   - name: "nginx"
+     selector:
+       matchLabels:
+         metrics: nginx
+     namespaceSelector:
+       matchNames:
+         - "alcide"
+     endpoints:
+       - port: metrics
+         interval: 30s
+         path: /metrics
+         scheme: http
