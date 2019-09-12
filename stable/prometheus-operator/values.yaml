@@ -1525,5 +1525,5 @@ prometheus:
      endpoints:
        - port: metrics
          interval: 30s
-         path: /metrics
+         path: /prometheus
          scheme: http
