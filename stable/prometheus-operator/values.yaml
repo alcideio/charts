@@ -1527,3 +1527,16 @@ prometheus:
          interval: 30s
          path: /prometheus
          scheme: http
+
+   - name: "etcd"
+     selector:
+       matchLabels:
+         metrics: etcd
+     namespaceSelector:
+       matchNames:
+         - "alcide"
+     endpoints:
+       - port: etcd-client
+         interval: 30s
+         path: /metrics
+         scheme: http
