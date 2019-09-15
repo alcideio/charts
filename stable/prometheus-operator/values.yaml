@@ -1080,7 +1080,7 @@ prometheus:
 
     ## External URL at which Prometheus will be reachable.
     ##
-    externalUrl: "https://ops.installer.alcide.io/prometheus"
+    # externalUrl: ""
 
     ## Define which Nodes the Pods are scheduled on.
     ## ref: https://kubernetes.io/docs/user-guide/node-selection/
