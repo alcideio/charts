@@ -68,8 +68,6 @@ global:
 ## ref: https://prometheus.io/docs/alerting/alertmanager/
 ##
 alertmanager:
-  
-  envType: internal
 
   ## Deploy alertmanager
   ##
