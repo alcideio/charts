@@ -1428,3 +1428,7 @@ prometheus:
          interval: 30s
          path: /metrics
          scheme: http
+
+alcide:
+  reputationRules: false
+  monitorRules: false

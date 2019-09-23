@@ -1,3 +1,4 @@
+{{- if .Values.alcide.reputationRules }}
 apiVersion: {{ printf "%s/v1" (.Values.prometheusOperator.crdApiGroup | default "monitoring.coreos.com") }}
 kind: PrometheusRule
 metadata:
@@ -61,3 +62,4 @@ spec:
             summary: Inventory Processor no events
             env: "{{`{{ $labels.environment }}`}}"
 
+{{- end }}
