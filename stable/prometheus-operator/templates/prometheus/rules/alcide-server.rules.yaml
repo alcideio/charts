@@ -171,7 +171,7 @@ spec:
             {{/*env: "{{`{{ $labels.environment }}`}}"*/}}
 
       - alert: KafkaInventoryLag
-        expr: 'kafka_consumergroup_lag{topic="inventory",consumergroup!~".*e2e.*"} > 4000'
+        expr: 'kafka_consumergroup_lag{topic="inventory",consumergroup!~".*e2e.*"} > 2000'
         for: 10m
         labels:
             severity: critical
@@ -181,7 +181,7 @@ spec:
             summary: lag was discovered in topic:{{`{{ $labels.topic }}`}} at partition:{{`{{ $labels.partition }}`}}
 
       - alert: KafkaComponentsActivityLag
-        expr: 'kafka_consumergroup_lag{topic="components-activity",consumergroup!~".*e2e.*"} > 10000'
+        expr: 'kafka_consumergroup_lag{topic="components-activity",consumergroup!~".*e2e.*"} > 2000'
         for: 10m
         labels:
             severity: critical
@@ -191,7 +191,17 @@ spec:
             summary: lag was discovered in topic:{{`{{ $labels.topic }}`}} at partition:{{`{{ $labels.partition }}`}}
 
       - alert: KafkaNetActivityLag
-        expr: 'kafka_consumergroup_lag{topic="netactivity",consumergroup!~".*e2e.*"} > 30000'
+        expr: 'kafka_consumergroup_lag{topic="netactivity",consumergroup!~".*e2e.*"} > 2000'
+        for: 10m
+        labels:
+            severity: critical
+            component: server
+        annotations:
+            description: "kafka lag in topic:{{`{{ $labels.topic }}`}} partition:{{`{{ $labels.partition }}`}} has excedded lag threshold of 2000"
+            summary: lag was discovered in topic:{{`{{ $labels.topic }}`}} at partition:{{`{{ $labels.partition }}`}}
+
+      - alert: KafkaSecurityFeaturesLag
+        expr: 'kafka_consumergroup_lag{topic="security-features",consumergroup!~".*e2e.*"} > 2000'
         for: 10m
         labels:
             severity: critical
