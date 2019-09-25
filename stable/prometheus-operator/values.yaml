@@ -1679,222 +1679,138 @@ prometheus:
     additionalScrapeConfigsExternal: false
 
   additionalServiceMonitors: []
-  ## Name of the ServiceMonitor to create
-  ##
-  # - name: ""
+    - name: "telexporter"
+      selector:
+        matchLabels:
+          metrics: alcide
+      namespaceSelector:
+        matchNames:
+          - "alcide"
+      endpoints:
+        - port: http
+          interval: 30s
+          path: /metrics
+          scheme: http
 
-    ## Additional labels to set used for the ServiceMonitorSelector. Together with standard labels from
-    ## the chart
-    ##
-    # additionalLabels: {}
+    - name: "kafka-exporter"
+      selector:
+        matchLabels:
+          metrics: kafka-exporter
+      namespaceSelector:
+        matchNames:
+          - "alcide"
+      endpoints:
+        - port: http
+          interval: 30s
+          path: /metrics
+          scheme: http
 
-    ## Service label for use in assembling a job name of the form <label value>-<port>
-    ## If no label is specified, the service name is used.
-    ##
-    # jobLabel: ""
+    - name: "kafka"
+      selector:
+        matchLabels:
+          metrics: kafka
+      namespaceSelector:
+        matchNames:
+          - "alcide"
+      endpoints:
+        - port: http
+          interval: 30s
+          path: /metrics
+          scheme: http
 
-    ## labels to transfer from the kubernetes service to the target
-    ##
-    # targetLabels: ""
+    - name: "cassandra"
+      selector:
+        matchLabels:
+          metrics: cassandra
+      namespaceSelector:
+        matchNames:
+          - "alcide"
+      endpoints:
+        - port: http
+          interval: 30s
+          path: /metrics
+          scheme: http
 
-    ## Label selector for services to which this ServiceMonitor applies
-    ##
-    # selector: {}
+    - name: "mongodb"
+      selector:
+        matchLabels:
+          metrics: mongodb
+      namespaceSelector:
+        matchNames:
+          - "alcide"
+      endpoints:
+        - port: metrics
+          interval: 30s
+          path: /metrics
+          scheme: http
 
-    ## Namespaces from which services are selected
-    ##
-    # namespaceSelector:
-      ## Match any namespace
-      ##
-      # any: false
+    - name: "e2e-metricsgw"
+      selector:
+        matchLabels:
+          metrics: e2e-metricsgw
+      namespaceSelector:
+        matchNames:
+          - "alcide"
+      endpoints:
+        - port: http
+          interval: 60s
+          path: /metrics
+          scheme: http
 
-      ## Explicit list of namespace names to select
-      ##
-      # matchNames: []
+    - name: "olympia"
+      selector:
+        matchLabels:
+          metrics: olympia
+      namespaceSelector:
+        matchNames:
+          - "alcide"
+      endpoints:
+        - port: metrics
+          targetPort: 6667
+          interval: 60s
+          path: /metrics
+          scheme: https
+          tlsConfig:
+            insecureSkipVerify: true
 
-    ## Endpoints of the selected service to be monitored
-    ##
-    # endpoints: []
-      ## Name of the endpoint's service port
-      ## Mutually exclusive with targetPort
-      # - port: ""
+    - name: "nginx"
+      selector:
+        matchLabels:
+          metrics: nginx
+      namespaceSelector:
+        matchNames:
+          - "alcide"
+      endpoints:
+        - port: metrics
+          interval: 30s
+          path: /metrics
+          scheme: http
 
-      ## Name or number of the endpoint's target port
-      ## Mutually exclusive with port
-      # - targetPort: ""
+    - name: "alcide-dashboard-nginx"
+      selector:
+        matchLabels:
+          metrics: alcide-dashboard-nginx
+      namespaceSelector:
+        matchNames:
+          - "alcide"
+      endpoints:
+        - port: metrics
+          interval: 30s
+          path: /prometheus
+          scheme: http
 
-      ## File containing bearer token to be used when scraping targets
-      ##
-      #   bearerTokenFile: ""
-
-      ## Interval at which metrics should be scraped
-      ##
-      #   interval: 30s
-
-      ## HTTP path to scrape for metrics
-      ##
-      #   path: /metrics
-
-      ## HTTP scheme to use for scraping
-      ##
-      #   scheme: http
-
-      ## TLS configuration to use when scraping the endpoint
-      ##
-      #   tlsConfig:
-
-          ## Path to the CA file
-          ##
-          # caFile: ""
-
-          ## Path to client certificate file
-          ##
-          # certFile: ""
-
-          ## Skip certificate verification
-          ##
-          # insecureSkipVerify: false
-
-          ## Path to client key file
-          ##
-          # keyFile: ""
-
-          ## Server name used to verify host name
-          ##
-          # serverName: ""
-
-   - name: "telexporter"
-     selector:
-       matchLabels:
-         metrics: alcide
-     namespaceSelector:
-       matchNames:
-         - "alcide"
-     endpoints:
-       - port: http
-         interval: 30s
-         path: /metrics
-         scheme: http
-
-   - name: "kafka-exporter"
-     selector:
-       matchLabels:
-         metrics: kafka-exporter
-     namespaceSelector:
-       matchNames:
-         - "alcide"
-     endpoints:
-       - port: http
-         interval: 30s
-         path: /metrics
-         scheme: http
-
-   - name: "kafka"
-     selector:
-       matchLabels:
-         metrics: kafka
-     namespaceSelector:
-       matchNames:
-         - "alcide"
-     endpoints:
-       - port: http
-         interval: 30s
-         path: /metrics
-         scheme: http
-
-   - name: "cassandra"
-     selector:
-       matchLabels:
-         metrics: cassandra
-     namespaceSelector:
-       matchNames:
-         - "alcide"
-     endpoints:
-       - port: http
-         interval: 30s
-         path: /metrics
-         scheme: http
-
-   - name: "mongodb"
-     selector:
-       matchLabels:
-         metrics: mongodb
-     namespaceSelector:
-       matchNames:
-         - "alcide"
-     endpoints:
-       - port: metrics
-         interval: 30s
-         path: /metrics
-         scheme: http
-
-   - name: "e2e-metricsgw"
-     selector:
-       matchLabels:
-         metrics: e2e-metricsgw
-     namespaceSelector:
-       matchNames:
-         - "alcide"
-     endpoints:
-       - port: http
-         interval: 60s
-         path: /metrics
-         scheme: http
-
-   - name: "olympia"
-     selector:
-       matchLabels:
-         metrics: olympia
-     namespaceSelector:
-       matchNames:
-         - "alcide"
-     endpoints:
-       - port: metrics
-         targetPort: 6667
-         interval: 60s
-         path: /metrics
-         scheme: https
-         tlsConfig:
-           insecureSkipVerify: true
-
-   - name: "nginx"
-     selector:
-       matchLabels:
-         metrics: nginx
-     namespaceSelector:
-       matchNames:
-         - "alcide"
-     endpoints:
-       - port: metrics
-         interval: 30s
-         path: /metrics
-         scheme: http
-
-   - name: "alcide-dashboard-nginx"
-     selector:
-       matchLabels:
-         metrics: alcide-dashboard-nginx
-     namespaceSelector:
-       matchNames:
-         - "alcide"
-     endpoints:
-       - port: metrics
-         interval: 30s
-         path: /prometheus
-         scheme: http
-
-   - name: "etcd"
-     selector:
-       matchLabels:
-         metrics: etcd
-     namespaceSelector:
-       matchNames:
-         - "alcide"
-     endpoints:
-       - port: etcd-client
-         interval: 30s
-         path: /metrics
-         scheme: http
+    - name: "etcd"
+      selector:
+        matchLabels:
+          metrics: etcd
+      namespaceSelector:
+        matchNames:
+          - "alcide"
+      endpoints:
+        - port: etcd-client
+          interval: 30s
+          path: /metrics
+          scheme: http
 
 alcide:
   reputationRules: false
