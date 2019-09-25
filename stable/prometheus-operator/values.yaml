@@ -119,7 +119,6 @@ alertmanager:
 
     receivers:
     - name: 'null'
-
     - name: slack_production_alerts
       slack_configs:
         - api_url: SLACK_PRODUCTION_ALERTS_URL
@@ -134,21 +133,20 @@ alertmanager:
               {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
               {{ end }}
             {{ end }}
-
-        - name: slack_production_alerts_agent
-          slack_configs:
-            - api_url: SLACK_PRODUCTION_ALERTS_AGENT_URL
-              channel: '#prod_alerts_agent'
-              send_resolved: true
-              title: '[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] ENVIRONMENT - Monitoring Event Notification'
-              text: >-
-                {{ range .Alerts }}
-                  *Alert:* {{ .Annotations.summary }} - `{{ .Labels.severity }}`
-                  *Description:* {{ .Annotations.description }}
-                  *Details:*
-                  {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
-                  {{ end }}
-                {{ end }}
+    - name: slack_production_alerts_agent
+      slack_configs:
+        - api_url: SLACK_PRODUCTION_ALERTS_AGENT_URL
+          channel: '#prod_alerts_agent'
+          send_resolved: true
+          title: '[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] ENVIRONMENT - Monitoring Event Notification'
+          text: >-
+            {{ range .Alerts }}
+              *Alert:* {{ .Annotations.summary }} - `{{ .Labels.severity }}`
+              *Description:* {{ .Annotations.description }}
+              *Details:*
+              {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
+              {{ end }}
+            {{ end }}
 
   ## Pass the Alertmanager configuration directives through Helm's templating
   ## engine. If the Alertmanager configuration contains Alertmanager templates,
