@@ -55,11 +55,3 @@ spec:
         annotations:
           summary: "{{`{{$labels.node}}`}}: memory usage is above 90% for the last 10 minutes"
           description: "Current memory usage (Percentage): {{`{{ $value }}`}}"
-
-      - alert: AlcidePodRestart
-        expr: 'increase(kube_pod_container_status_restarts_total{namespace="alcide"}[10m]) > 0'
-        labels:
-          severity: error
-          component: infra
-        annotations:
-          description: "{{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod }}`}} was restarted {{`{{ $value }}`}} times within the last 10 minutes"

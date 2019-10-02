@@ -22,7 +22,7 @@ spec:
             {{/*severity: error*/}}
             {{/*component: server*/}}
         {{/*annotations:*/}}
-            {{/*description: "Inventory Processor {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"*/}}
+            {{/*description: "Inventory Processor {{`{{ $labels.source }}`}}  has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"*/}}
             {{/*summary: Inventory Processor errors count*/}}
             {{/*env: "{{`{{ $labels.environment }}`}}"*/}}
 
@@ -33,7 +33,7 @@ spec:
             {{/*severity: warning*/}}
             {{/*component: server*/}}
         {{/*annotations:*/}}
-            {{/*description: "Inventory Processor {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} processed no event in last 10 minutes - {{`{{ $labels.__name__ }}`}}"*/}}
+            {{/*description: "Inventory Processor {{`{{ $labels.source }}`}}  processed no event in last 10 minutes - {{`{{ $labels.__name__ }}`}}"*/}}
             {{/*summary: Inventory Processor no events*/}}
             {{/*env: "{{`{{ $labels.environment }}`}}"*/}}
 
@@ -43,7 +43,7 @@ spec:
             {{/*severity: error*/}}
             {{/*component: server*/}}
         {{/*annotations:*/}}
-            {{/*description: "Activity Processor {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"*/}}
+            {{/*description: "Activity Processor {{`{{ $labels.source }}`}}  has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"*/}}
             {{/*summary: ActivityProcessor errors count*/}}
             {{/*env: "{{`{{ $labels.environment }}`}}"*/}}
 
@@ -54,7 +54,7 @@ spec:
             {{/*severity: warning*/}}
             {{/*component: server*/}}
         {{/*annotations:*/}}
-            {{/*description: "Activity Processor {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} processed no event in last 10 minutes - {{`{{ $labels.__name__ }}`}}"*/}}
+            {{/*description: "Activity Processor {{`{{ $labels.source }}`}}  processed no event in last 10 minutes - {{`{{ $labels.__name__ }}`}}"*/}}
             {{/*summary: Activity Processor - no events*/}}
             {{/*env: "{{`{{ $labels.environment }}`}}"*/}}
 
@@ -64,7 +64,7 @@ spec:
             {{/*severity: error*/}}
             {{/*component: server*/}}
         {{/*annotations:*/}}
-            {{/*description: "Alert Processor {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"*/}}
+            {{/*description: "Alert Processor {{`{{ $labels.source }}`}}  has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"*/}}
             {{/*summary: Alert Processor errors count*/}}
             {{/*env: "{{`{{ $labels.environment }}`}}"*/}}
 
@@ -74,7 +74,7 @@ spec:
             {{/*severity: error*/}}
             {{/*component: server*/}}
         {{/*annotations:*/}}
-            {{/*description: "Alert Level Processor {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"*/}}
+            {{/*description: "Alert Level Processor {{`{{ $labels.source }}`}}  has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"*/}}
             {{/*summary: Alert Level Processor errors count*/}}
             {{/*env: "{{`{{ $labels.environment }}`}}"*/}}
 
@@ -84,7 +84,7 @@ spec:
             {{/*severity: error*/}}
             {{/*component: server*/}}
         {{/*annotations:*/}}
-            {{/*description: "Security Features Processor {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"*/}}
+            {{/*description: "Security Features Processor {{`{{ $labels.source }}`}}  has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"*/}}
             {{/*summary: Security Features Processor errors count*/}}
             {{/*env: "{{`{{ $labels.environment }}`}}"*/}}
 
@@ -95,7 +95,7 @@ spec:
             {{/*severity: warning*/}}
             {{/*component: server*/}}
         {{/*annotations:*/}}
-            {{/*description: "Security Features Processor {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} processed no event in last 10 minutes - {{`{{ $labels.__name__ }}`}}"*/}}
+            {{/*description: "Security Features Processor {{`{{ $labels.source }}`}}  processed no event in last 10 minutes - {{`{{ $labels.__name__ }}`}}"*/}}
             {{/*summary: Security Features Processor - no events*/}}
             {{/*env: "{{`{{ $labels.environment }}`}}"*/}}
 
@@ -105,7 +105,7 @@ spec:
             {{/*severity: error*/}}
             {{/*component: server*/}}
         {{/*annotations:*/}}
-            {{/*description: "GraphQL {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"*/}}
+            {{/*description: "GraphQL {{`{{ $labels.source }}`}}  has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"*/}}
             {{/*summary: GraphQL errors count*/}}
             {{/*env: "{{`{{ $labels.environment }}`}}"*/}}
 
@@ -115,7 +115,7 @@ spec:
             {{/*severity: warning*/}}
             {{/*component: server*/}}
         {{/*annotations:*/}}
-            {{/*description: "GraphQL {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has recent request processing latency of ({{`{{ $value }}`}}) MSec - {{`{{ $labels.__name__ }}`}}"*/}}
+            {{/*description: "GraphQL {{`{{ $labels.source }}`}}  has recent request processing latency of ({{`{{ $value }}`}}) MSec - {{`{{ $labels.__name__ }}`}}"*/}}
             {{/*summary: GraphQL request latency*/}}
             {{/*env: "{{`{{ $labels.environment }}`}}"*/}}
 
@@ -125,7 +125,7 @@ spec:
             severity: error
             component: server
         annotations:
-            description: "Cassandra {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
+            description: "Cassandra {{`{{ $labels.source }}`}} has ({{`{{ $value }}`}}) errors - {{`{{ $labels.__name__ }}`}}"
             summary: Cassandra errors count
             env: "{{`{{ $labels.environment }}`}}"
 
@@ -135,7 +135,7 @@ spec:
             {{/*severity: error*/}}
             {{/*component: server*/}}
         {{/*annotations:*/}}
-            {{/*description: "Ignite {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}})-per-second recent errors rate - {{`{{ $labels.__name__ }}`}}"*/}}
+            {{/*description: "Ignite {{`{{ $labels.source }}`}}  has ({{`{{ $value }}`}})-per-second recent errors rate - {{`{{ $labels.__name__ }}`}}"*/}}
             {{/*summary: Ignite errors rate*/}}
             {{/*env: "{{`{{ $labels.environment }}`}}"*/}}
 
@@ -146,19 +146,19 @@ spec:
             {{/*severity: warning*/}}
             {{/*component: server*/}}
         {{/*annotations:*/}}
-            {{/*description: "Ignite {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} is inactive in last 5 minutes - {{`{{ $labels.__name__ }}`}}"*/}}
+            {{/*description: "Ignite {{`{{ $labels.source }}`}}  is inactive in last 5 minutes - {{`{{ $labels.__name__ }}`}}"*/}}
             {{/*summary: Ignite inactive*/}}
             {{/*env: "{{`{{ $labels.environment }}`}}"*/}}
 
-      - alert: JVMMemoryHeapUsage
-        expr: '{__name__=~".+JVM_Memory_heap_usage"} > 0.95'
-        labels:
-            severity: warning
-            component: server
-        annotations:
-            description: "Process {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has memory heap usage of ({{`{{ $value }}`}}) - {{`{{ $labels.__name__ }}`}}"
-            summary: Memory heap almost exhausted
-            env: "{{`{{ $labels.environment }}`}}"
+      {{/*- alert: JVMMemoryHeapUsage*/}}
+        {{/*expr: '{__name__=~".+JVM_Memory_heap_usage"} > 0.95'*/}}
+        {{/*labels:*/}}
+            {{/*severity: warning*/}}
+            {{/*component: server*/}}
+        {{/*annotations:*/}}
+            {{/*description: "Process {{`{{ $labels.source }}`}}  has memory heap usage of ({{`{{ $value }}`}}) - {{`{{ $labels.__name__ }}`}}"*/}}
+            {{/*summary: Memory heap almost exhausted*/}}
+            {{/*env: "{{`{{ $labels.environment }}`}}"*/}}
 
       {{/*- alert: LoggedErrors*/}}
         {{/*expr: 'increase({__name__=~".+_Appender_error"}[5m]) > 3'*/}}
@@ -166,7 +166,7 @@ spec:
             {{/*severity: warning*/}}
             {{/*component: server*/}}
         {{/*annotations:*/}}
-            {{/*description: "{{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has ({{`{{ $value }}`}}) logged errors in recent minutes - {{`{{ $labels.__name__ }}`}}"*/}}
+            {{/*description: "{{`{{ $labels.source }}`}}  has ({{`{{ $value }}`}}) logged errors in recent minutes - {{`{{ $labels.__name__ }}`}}"*/}}
             {{/*summary: Logged errors count*/}}
             {{/*env: "{{`{{ $labels.environment }}`}}"*/}}
 
