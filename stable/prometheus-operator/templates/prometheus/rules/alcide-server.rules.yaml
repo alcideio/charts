@@ -200,6 +200,16 @@ spec:
             description: "kafka lag in topic:{{`{{ $labels.topic }}`}} partition:{{`{{ $labels.partition }}`}} has excedded lag threshold of 2000"
             summary: lag was discovered in topic:{{`{{ $labels.topic }}`}} at partition:{{`{{ $labels.partition }}`}}
 
+      - alert: KafkaSecurityFeaturesLag
+        expr: 'kafka_consumergroup_lag{topic="security-features",consumergroup!~".*e2e.*"} > 6000'
+        for: 10m
+        labels:
+            severity: critical
+            component: server
+        annotations:
+            description: "kafka lag in topic:{{`{{ $labels.topic }}`}} partition:{{`{{ $labels.partition }}`}} has excedded lag threshold of 6000"
+            summary: lag was discovered in topic:{{`{{ $labels.topic }}`}} at partition:{{`{{ $labels.partition }}`}}
+
       - alert: KafkaComponentsActivityLagRate
         expr: 'irate(kafka_consumergroup_lag{topic="ComponentsActivity",consumergroup!~".*e2e.*"}[5m]) > 20'
         labels:

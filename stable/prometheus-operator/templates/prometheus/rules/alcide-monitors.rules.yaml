@@ -1,3 +1,4 @@
+{{- if .Values.alcide.monitorRules }}
 apiVersion: {{ printf "%s/v1" (.Values.prometheusOperator.crdApiGroup | default "monitoring.coreos.com") }}
 kind: PrometheusRule
 metadata:
@@ -81,3 +82,4 @@ spec:
         annotations:
             description: "CloudWatchDog {{`{{ $labels.source }}`}} running in {{`{{ $labels.environment }}`}} has topology retry failures - {{`{{ $labels.__name__ }}`}}"
             env: "{{`{{ $labels.environment }}`}}"
+{{- end }}
