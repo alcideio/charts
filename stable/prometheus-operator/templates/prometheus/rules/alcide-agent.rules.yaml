@@ -16,15 +16,6 @@ spec:
   groups:
     - name: alcide-agent.rules
       rules:
-      - alert: AgentPodRestart
-        expr: increase(kube_pod_container_status_restarts{namespace="alcide",container="nodelet"}[5m]) > 0
-        labels:
-            severity: error
-            component: agent
-        annotations:
-            description: Agent nodelet {{`{{ $labels.namespace }}`}}/{{`{{ $labels.pod }}`}} was restarted {{`{{ $value }}`}}
-                times within the last 5 minutes
-
       - alert: AgentDaemonTraceAttachmentErrorCount
         expr: 'increase({__name__=~".*empty_producer_ip_occasions_count"}[5m]) > 0'
         labels:

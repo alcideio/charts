@@ -181,7 +181,7 @@ alertmanager:
   #           {{ end }}
 
   ingress:
-    enabled: false
+    enabled: true
 
     annotations:
       kubernetes.io/ingress.class: nginx
@@ -420,7 +420,7 @@ grafana:
   ingress:
     ## If true, Grafana Ingress will be created
     ##
-    enabled: false
+    enabled: true
 
     ## Annotations for Grafana Ingress
     ##
@@ -690,7 +690,7 @@ kubeControllerManager:
 ## Component scraping coreDns. Use either this or kubeDns
 ##
 coreDns:
-  enabled: true
+  enabled: false
   service:
     port: 9153
     targetPort: 9153
@@ -721,7 +721,7 @@ coreDns:
 ## Component scraping kubeDns. Use either this or coreDns
 ##
 kubeDns:
-  enabled: false
+  enabled: true
   service:
     selector:
       k8s-app: kube-dns
@@ -1271,7 +1271,7 @@ prometheus:
     maxUnavailable: ""
 
   ingress:
-    enabled: false
+    enabled: true
     annotations:
       kubernetes.io/ingress.class: nginx
       nginx.ingress.kubernetes.io/auth-signin: https://$host/oauth2/start
