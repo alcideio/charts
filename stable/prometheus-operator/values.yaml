@@ -1494,7 +1494,7 @@ prometheus:
 
     ## Number of Prometheus replicas desired
     ##
-    replicas: 2
+    replicas: 1
 
     ## Log level for Prometheus be configured in
     ##
