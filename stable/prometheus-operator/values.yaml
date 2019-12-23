@@ -206,6 +206,11 @@ alertmanager:
     ##
     tls: []
 
+  ## Configuration for Alertmanager secret
+  ##
+  secret:
+    annotations: {}
+
   ## Configuration for Alertmanager service
   ##
   service:
@@ -213,13 +218,16 @@ alertmanager:
     labels: {}
     clusterIP: ""
 
-  ## Port to expose on each node
-  ## Only used if service.type is 'NodePort'
-  ##
+    ## Port for Alertmanager Service to listen on
+    ##
+    port: 9093
+    ## Port to expose on each node
+    ## Only used if service.type is 'NodePort'
+    ##
     nodePort: 30903
-  ## List of IP addresses at which the Prometheus server service is available
-  ## Ref: https://kubernetes.io/docs/user-guide/services/#external-ips
-  ##
+    ## List of IP addresses at which the Prometheus server service is available
+    ## Ref: https://kubernetes.io/docs/user-guide/services/#external-ips
+    ##
     externalIPs: []
     loadBalancerIP: ""
     loadBalancerSourceRanges: []
@@ -248,7 +256,7 @@ alertmanager:
     # - sourceLabels: [__meta_kubernetes_pod_node_name]
     #   separator: ;
     #   regex: ^(.*)$
-    #   target_label: nodename
+    #   targetLabel: nodename
     #   replacement: $1
     #   action: replace
 
@@ -281,6 +289,11 @@ alertmanager:
     ## The ConfigMaps are mounted into /etc/alertmanager/configmaps/.
     ##
     configMaps: []
+
+    ## ConfigSecret is the name of a Kubernetes Secret in the same namespace as the Alertmanager object, which contains configuration for
+    ## this Alertmanager instance. Defaults to 'alertmanager-' The secret is mounted into /etc/alertmanager/config.
+    ##
+    # configSecret:
 
     ## Define Log Format
     # Use logfmt (default) or json-formatted logging
@@ -400,6 +413,11 @@ alertmanager:
     ##
     additionalPeers: []
 
+    ## PortName to use for Alert Manager.
+    ##
+    portName: "web"
+
+
 ## Using default values from https://github.com/helm/charts/blob/master/stable/grafana/values.yaml
 ##
 grafana:
@@ -460,6 +478,11 @@ grafana:
     datasources:
       enabled: true
       defaultDatasourceEnabled: true
+
+      ## Annotations for Grafana datasource configmaps
+      ##
+      annotations: {}
+
       ## Create datasource for each Pod of Prometheus StatefulSet;
       ## this uses headless service `prometheus-operated` which is
       ## created by Prometheus Operator
@@ -532,7 +555,7 @@ grafana:
     # - sourceLabels: [__meta_kubernetes_pod_node_name]
     #   separator: ;
     #   regex: ^(.*)$
-    #   target_label: nodename
+    #   targetLabel: nodename
     #   replacement: $1
     #   action: replace
 
@@ -609,7 +632,7 @@ kubelet:
     # - sourceLabels: [__meta_kubernetes_pod_node_name]
     #   separator: ;
     #   regex: ^(.*)$
-    #   target_label: nodename
+    #   targetLabel: nodename
     #   replacement: $1
     #   action: replace
 
@@ -631,7 +654,7 @@ kubelet:
     # - sourceLabels: [__meta_kubernetes_pod_node_name]
     #   separator: ;
     #   regex: ^(.*)$
-    #   target_label: nodename
+    #   targetLabel: nodename
     #   replacement: $1
     #   action: replace
 
@@ -652,8 +675,8 @@ kubeControllerManager:
   service:
     port: 10252
     targetPort: 10252
-    selector:
-      component: kube-controller-manager
+    # selector:
+    #   component: kube-controller-manager
 
   serviceMonitor:
     ## Scrape interval. If not set, the Prometheus default scrape interval is used.
@@ -684,7 +707,7 @@ kubeControllerManager:
     # - sourceLabels: [__meta_kubernetes_pod_node_name]
     #   separator: ;
     #   regex: ^(.*)$
-    #   target_label: nodename
+    #   targetLabel: nodename
     #   replacement: $1
     #   action: replace
 
@@ -695,8 +718,8 @@ coreDns:
   service:
     port: 9153
     targetPort: 9153
-    selector:
-      k8s-app: kube-dns
+    # selector:
+    #   k8s-app: kube-dns
   serviceMonitor:
     ## Scrape interval. If not set, the Prometheus default scrape interval is used.
     ##
@@ -715,7 +738,7 @@ coreDns:
     # - sourceLabels: [__meta_kubernetes_pod_node_name]
     #   separator: ;
     #   regex: ^(.*)$
-    #   target_label: nodename
+    #   targetLabel: nodename
     #   replacement: $1
     #   action: replace
 
@@ -724,8 +747,14 @@ coreDns:
 kubeDns:
   enabled: true
   service:
-    selector:
-      k8s-app: kube-dns
+    dnsmasq:
+      port: 10054
+      targetPort: 10054
+    skydns:
+      port: 10055
+      targetPort: 10055
+    # selector:
+    #   k8s-app: kube-dns
   serviceMonitor:
     ## Scrape interval. If not set, the Prometheus default scrape interval is used.
     ##
@@ -744,7 +773,7 @@ kubeDns:
     # - sourceLabels: [__meta_kubernetes_pod_node_name]
     #   separator: ;
     #   regex: ^(.*)$
-    #   target_label: nodename
+    #   targetLabel: nodename
     #   replacement: $1
     #   action: replace
     dnsmasqMetricRelabelings: []
@@ -758,7 +787,7 @@ kubeDns:
     # - sourceLabels: [__meta_kubernetes_pod_node_name]
     #   separator: ;
     #   regex: ^(.*)$
-    #   target_label: nodename
+    #   targetLabel: nodename
     #   replacement: $1
     #   action: replace
 
@@ -779,8 +808,8 @@ kubeEtcd:
   service:
     port: 2379
     targetPort: 2379
-    selector:
-      component: etcd
+    # selector:
+    #   component: etcd
 
   ## Configure secure access to the etcd cluster by loading a secret into prometheus and
   ## specifying security configuration below. For example, with a secret named etcd-client-cert
@@ -817,7 +846,7 @@ kubeEtcd:
     # - sourceLabels: [__meta_kubernetes_pod_node_name]
     #   separator: ;
     #   regex: ^(.*)$
-    #   target_label: nodename
+    #   targetLabel: nodename
     #   replacement: $1
     #   action: replace
 
@@ -839,8 +868,8 @@ kubeScheduler:
   service:
     port: 10251
     targetPort: 10251
-    selector:
-      component: kube-scheduler
+    # selector:
+    #   component: kube-scheduler
 
   serviceMonitor:
     ## Scrape interval. If not set, the Prometheus default scrape interval is used.
@@ -870,7 +899,7 @@ kubeScheduler:
     # - sourceLabels: [__meta_kubernetes_pod_node_name]
     #   separator: ;
     #   regex: ^(.*)$
-    #   target_label: nodename
+    #   targetLabel: nodename
     #   replacement: $1
     #   action: replace
 
@@ -880,11 +909,18 @@ kubeScheduler:
 kubeProxy:
   enabled: true
 
+  ## If your kube proxy is not deployed as a pod, specify IPs it can be found on
+  ##
+  endpoints: []
+  # - 10.141.4.22
+  # - 10.141.4.23
+  # - 10.141.4.24
+
   service:
     port: 10249
     targetPort: 10249
-    selector:
-      k8s-app: kube-proxy
+    # selector:
+    #   k8s-app: kube-proxy
 
   serviceMonitor:
     ## Scrape interval. If not set, the Prometheus default scrape interval is used.
@@ -933,7 +969,7 @@ kubeStateMetrics:
     # - sourceLabels: [__meta_kubernetes_pod_node_name]
     #   separator: ;
     #   regex: ^(.*)$
-    #   target_label: nodename
+    #   targetLabel: nodename
     #   replacement: $1
     #   action: replace
 
@@ -959,6 +995,10 @@ nodeExporter:
     ##
     interval: ""
 
+    ## How long until a scrape request times out. If not set, the Prometheus default scape timeout is used.
+    ##
+    scrapeTimeout: ""
+
     ## 	metric relabel configs to apply to samples before ingestion.
     ##
     metricRelabelings: []
@@ -974,7 +1014,7 @@ nodeExporter:
     # - sourceLabels: [__meta_kubernetes_pod_node_name]
     #   separator: ;
     #   regex: ^(.*)$
-    #   target_label: nodename
+    #   targetLabel: nodename
     #   replacement: $1
     #   action: replace
 
@@ -1027,12 +1067,24 @@ prometheusOperator:
         repository: jettech/kube-webhook-certgen
         tag: v1.0.0
         pullPolicy: IfNotPresent
+      resources: {}
       ## Provide a priority class name to the webhook patching job
       ##
       priorityClassName: ""
       podAnnotations: {}
       nodeSelector: {}
 
+  ## Namespaces to scope the interaction of the Prometheus Operator and the apiserver (allow list).
+  ## This is mutually exclusive with denyNamespaces. Setting this to an empty object will disable the configuration
+  ##
+  namespaces: {}
+    # releaseNamespace: true
+    # additional:
+    # - kube-system
+
+  ## Namespaces not to scope the interaction of the Prometheus Operator (deny list).
+  ##
+  denyNamespaces: []
 
   ## Service account for Alertmanager to use.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
@@ -1079,12 +1131,6 @@ prometheusOperator:
   ## Deploy CRDs used by Prometheus Operator.
   ##
   createCustomResource: false
-
-  ## Customize CRDs API Group
-  crdApiGroup: monitoring.coreos.com
-
-  # Remove CRDs before instaling, created for use on CI environment.
-  cleanupCustomResourceBeforeInstall: false
 
   ## Attempt to clean up CRDs created by Prometheus Operator.
   ##
@@ -1136,7 +1182,7 @@ prometheusOperator:
     # - sourceLabels: [__meta_kubernetes_pod_node_name]
     #   separator: ;
     #   regex: ^(.*)$
-    #   target_label: nodename
+    #   targetLabel: nodename
     #   replacement: $1
     #   action: replace
 
@@ -1187,7 +1233,7 @@ prometheusOperator:
   ##
   image:
     repository: quay.io/coreos/prometheus-operator
-    tag: v0.32.0
+    tag: v0.34.0
     pullPolicy: IfNotPresent
 
   ## Configmap-reload image to use for reloading configmaps
@@ -1200,15 +1246,15 @@ prometheusOperator:
   ##
   prometheusConfigReloaderImage:
     repository: quay.io/coreos/prometheus-config-reloader
-    tag: v0.32.0
+    tag: v0.34.0
 
-  ## Set the prometheus config reloader side-car CPU limit. If unset, uses the prometheus-operator project default
+  ## Set the prometheus config reloader side-car CPU limit
   ##
-  # configReloaderCpu: 100m
+  configReloaderCpu: 100m
 
-  ## Set the prometheus config reloader side-car memory limit. If unset, uses the prometheus-operator project default
+  ## Set the prometheus config reloader side-car memory limit
   ##
-  # configReloaderMemory: 25Mi
+  configReloaderMemory: 25Mi
 
   ## Hyperkube image to use when cleaning up
   ##
@@ -1222,6 +1268,10 @@ prometheusOperator:
 prometheus:
 
   enabled: true
+
+  ## Annotations for Prometheus
+  ##
+  annotations: {}
 
   ## Service account for Prometheuses to use.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
@@ -1237,6 +1287,9 @@ prometheus:
     labels: {}
     clusterIP: ""
 
+    ## Port for Prometheus Service to listen on
+    ##
+    port: 9090
 
     ## To be used with a proxy extraContainer port
     targetPort: 9090
@@ -1260,6 +1313,31 @@ prometheus:
     type: ClusterIP
 
     sessionAffinity: ""
+
+  ## Configuration for creating a separate Service for each statefulset Prometheus replica
+  ##
+  servicePerReplica:
+    enabled: false
+    annotations: {}
+
+    ## Port for Prometheus Service per replica to listen on
+    ##
+    port: 9090
+
+    ## To be used with a proxy extraContainer port
+    targetPort: 9090
+
+    ## Port to expose on each node
+    ## Only used if servicePerReplica.type is 'NodePort'
+    ##
+    nodePort: 30091
+
+    ## Loadbalancer source IP ranges
+    ## Only used if servicePerReplica.type is "loadbalancer"
+    loadBalancerSourceRanges: []
+    ## Service type
+    ##
+    type: ClusterIP
 
   ## Configure pod disruption budgets for Prometheus
   ## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget
@@ -1300,6 +1378,32 @@ prometheus:
       #   hosts:
       #     - prometheus.example.com
 
+  ## Configuration for creating an Ingress that will map to each Prometheus replica service
+  ## prometheus.servicePerReplica must be enabled
+  ##
+  ingressPerReplica:
+    enabled: false
+    annotations: {}
+    labels: {}
+
+    ## Final form of the hostname for each per replica ingress is
+    ## {{ ingressPerReplica.hostPrefix }}-{{ $replicaNumber }}.{{ ingressPerReplica.hostDomain }}
+    ##
+    ## Prefix for the per replica ingress that will have `-$replicaNumber`
+    ## appended to the end
+    hostPrefix: ""
+    ## Domain that will be used for the per replica ingress
+    hostDomain: ""
+
+    ## Paths to use for ingress rules
+    ##
+    paths: []
+    # - /
+
+    ## Secret name containing the TLS certificate for Prometheus per replica ingress
+    ## Secret must be manually created in the namespace
+    tlsSecretName: ""
+
   ## Configure additional options for default pod security policy for Prometheus
   ## ref: https://kubernetes.io/docs/concepts/policy/pod-security-policy/
   podSecurityPolicy:
@@ -1310,6 +1414,8 @@ prometheus:
     ##
     interval: ""
     selfMonitor: true
+
+    bearerTokenFile:
 
     ## 	metric relabel configs to apply to samples before ingestion.
     ##
@@ -1324,7 +1430,7 @@ prometheus:
     # - sourceLabels: [__meta_kubernetes_pod_node_name]
     #   separator: ;
     #   regex: ^(.*)$
-    #   target_label: nodename
+    #   targetLabel: nodename
     #   replacement: $1
     #   action: replace
 
@@ -1355,7 +1461,7 @@ prometheus:
     ##
     image:
       repository: quay.io/prometheus/prometheus
-      tag: v2.12.0
+      tag: v2.13.1
 
     ## Tolerations for use with node taints
     ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
@@ -1476,6 +1582,26 @@ prometheus:
     ##
     serviceMonitorNamespaceSelector: {}
 
+    ## If true, a nil or {} value for prometheus.prometheusSpec.podMonitorSelector will cause the
+    ## prometheus resource to be created with selectors based on values in the helm deployment,
+    ## which will also match the podmonitors created
+    ##
+    podMonitorSelectorNilUsesHelmValues: true
+
+    ## PodMonitors to be selected for target discovery.
+    ## If {}, select all PodMonitors
+    ##
+    podMonitorSelector: {}
+    ## Example which selects PodMonitors with label "prometheus" set to "somelabel"
+    # podMonitorSelector:
+    #   matchLabels:
+    #     prometheus: somelabel
+
+    ## Namespaces to be selected for PodMonitor discovery.
+    ## See https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#namespaceselector for usage
+    ##
+    podMonitorNamespaceSelector: {}
+
     ## How long to retain metrics
     ##
     retention: 30d
@@ -1551,6 +1677,9 @@ prometheus:
     remoteWrite: []
     # - url: http://remote1/push
 
+    ## Enable/Disable Grafana dashboards provisioning for prometheus remote write feature
+    remoteWriteDashboards: false
+
     ## Resource limits & requests
     ##
     resources: {}
@@ -1573,7 +1702,7 @@ prometheus:
     ## AdditionalScrapeConfigs allows specifying additional Prometheus scrape configurations. Scrape configurations
     ## are appended to the configurations generated by the Prometheus Operator. Job configurations must have the form
     ## as specified in the official Prometheus documentation:
-    ## https://prometheus.io/docs/prometheus/latest/configuration/configuration/#<scrape_config>. As scrape configs are
+    ## https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config. As scrape configs are
     ## appended, the user is responsible to make sure it is valid. Note that using this feature may expose the possibility
     ## to break upgrades of Prometheus. It is advised to review Prometheus release notes to ensure that no incompatible
     ## scrape configs are going to break Prometheus after the upgrade.
@@ -1595,7 +1724,7 @@ prometheus:
     #     regex: __meta_kubernetes_node_label_(.+)
     #   - source_labels: [__address__]
     #     action: replace
-    #     target_label: __address__
+    #     targetLabel: __address__
     #     regex: ([^:;]+):(\d+)
     #     replacement: ${1}:2379
     #   - source_labels: [__meta_kubernetes_node_name]
@@ -1603,7 +1732,7 @@ prometheus:
     #     regex: .*mst.*
     #   - source_labels: [__meta_kubernetes_node_name]
     #     action: replace
-    #     target_label: node
+    #     targetLabel: node
     #     regex: (.*)
     #     replacement: ${1}
     #   metric_relabel_configs:
@@ -1666,7 +1795,14 @@ prometheus:
 
     ## Enable additional scrape configs that are managed externally to this chart. Note that the prometheus
     ## will fail to provision if the correct secret does not exist.
+    ## This option requires that you are maintaining a secret in the same namespace as Prometheus with
+    ## a name of 'prometheus-operator-prometheus-scrape-confg' and a key of 'additional-scrape-configs.yaml' that
+    ## contains a list of scrape_config's. The name of the secret may vary if you utilize the "fullnameOverride".
+    ## This feature cannot be used in conjunction with the additionalScrapeConfigs attribute (the helm-generated
+    ## secret will overwrite your self-maintained secret).
     ##
+    ## scrape_config docs: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config
+    ## explanation of "confg" typo: https://github.com/helm/charts/issues/13368
     additionalScrapeConfigsExternal: false
 
   additionalServiceMonitors:
