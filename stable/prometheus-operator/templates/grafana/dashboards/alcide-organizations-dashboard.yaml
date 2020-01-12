@@ -11,7 +11,7 @@ metadata:
 data:
   alcide-organizations-dashboard.json: |-
     {
-        "annotations": {
+      "annotations": {
         "list": [
           {
             "builtIn": 1,
@@ -28,13 +28,12 @@ data:
       "editable": true,
       "gnetId": null,
       "graphTooltip": 0,
-      "id": 28,
-      "iteration": 1578829791852,
+      "id": 29,
+      "iteration": 1578841855503,
       "links": [],
       "panels": [
         {
           "collapsed": false,
-          "datasource": null,
           "gridPos": {
             "h": 1,
             "w": 24,
@@ -55,7 +54,6 @@ data:
             "#F2CC0C",
             "#C4162A"
           ],
-          "datasource": null,
           "format": "none",
           "gauge": {
             "maxValue": 100,
@@ -139,7 +137,6 @@ data:
             "#E0B400",
             "#1F60C4"
           ],
-          "datasource": null,
           "format": "none",
           "gauge": {
             "maxValue": 100,
@@ -216,7 +213,6 @@ data:
         },
         {
           "columns": [],
-          "datasource": null,
           "fontSize": "100%",
           "gridPos": {
             "h": 9,
@@ -283,7 +279,6 @@ data:
             "#1F60C4",
             "#1F60C4"
           ],
-          "datasource": null,
           "format": "none",
           "gauge": {
             "maxValue": 100,
@@ -338,7 +333,7 @@ data:
           "tableColumn": "",
           "targets": [
             {
-              "expr": "count({source=~\".*K8SMonitor\", version=~\"DCV.*\"})",
+              "expr": "count({__name__=~\".*K8SMonitor_version\"})",
               "hide": false,
               "refId": "A"
             }
@@ -367,7 +362,6 @@ data:
             "#E0B400",
             "#1F60C4"
           ],
-          "datasource": null,
           "format": "none",
           "gauge": {
             "maxValue": 100,
@@ -451,7 +445,6 @@ data:
             "#37872D",
             "#1F60C4"
           ],
-          "datasource": null,
           "format": "none",
           "gauge": {
             "maxValue": 100,
@@ -528,7 +521,6 @@ data:
         },
         {
           "collapsed": false,
-          "datasource": null,
           "gridPos": {
             "h": 1,
             "w": 24,
@@ -549,7 +541,6 @@ data:
             "#8F3BB8",
             "#8F3BB8"
           ],
-          "datasource": null,
           "format": "none",
           "gauge": {
             "maxValue": 100,
@@ -604,7 +595,7 @@ data:
           "tableColumn": "",
           "targets": [
             {
-              "expr": "count({source=~\".*K8SMonitor\", organization=\"$org\",version=~\"DCV.*\"})",
+              "expr": "count({__name__=~\".*K8SMonitor_version\", organization=\"$org\",version=~\"DCV.*\"})",
               "hide": false,
               "refId": "A"
             }
@@ -633,7 +624,6 @@ data:
             "#E0B400",
             "#1F60C4"
           ],
-          "datasource": null,
           "format": "none",
           "gauge": {
             "maxValue": 100,
@@ -693,7 +683,7 @@ data:
               "refId": "A"
             }
           ],
-          "thresholds": "2,3",
+          "thresholds": "5",
           "timeFrom": null,
           "timeShift": null,
           "title": "# Of Deployed Kubemon Versions",
@@ -710,7 +700,6 @@ data:
         },
         {
           "columns": [],
-          "datasource": null,
           "fontSize": "100%",
           "gridPos": {
             "h": 8,
@@ -793,7 +782,6 @@ data:
             "#8F3BB8",
             "#8F3BB8"
           ],
-          "datasource": null,
           "format": "none",
           "gauge": {
             "maxValue": 100,
@@ -877,7 +865,6 @@ data:
             "#E0B400",
             "#1F60C4"
           ],
-          "datasource": null,
           "format": "none",
           "gauge": {
             "maxValue": 100,
@@ -954,7 +941,7 @@ data:
         }
       ],
       "refresh": false,
-      "schemaVersion": 21,
+      "schemaVersion": 19,
       "style": "dark",
       "tags": [
         "alcide",
@@ -982,8 +969,8 @@ data:
           {
             "allValue": null,
             "current": {
-              "text": "timferro",
-              "value": "timferro"
+              "text": "pashabank",
+              "value": "pashabank"
             },
             "datasource": "$datasource",
             "definition": "label_values({source=~\".*K8SMonitor\",version=~\".*\"}, organization)",
@@ -1007,7 +994,7 @@ data:
         ]
       },
       "time": {
-        "from": "now-1m",
+        "from": "now-15m",
         "to": "now"
       },
       "timepicker": {
@@ -1038,5 +1025,5 @@ data:
       "timezone": "",
       "title": "Alcide Organization View",
       "uid": "1LPNmSSWz",
-      "version": 4
+      "version": 30
     }
