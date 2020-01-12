@@ -11,7 +11,7 @@ metadata:
 data:
   alcide-organizations-dashboard.json: |-
     {
-      "annotations": {
+        "annotations": {
         "list": [
           {
             "builtIn": 1,
