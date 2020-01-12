@@ -3259,7 +3259,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "{__name__=~\".+JVM_Memory_heap_usage\"}",
+              "expr": "({__name__=~\".+_JVM_Memory_pools_Survivor_Space_used_after_gc\"} + {__name__=~\".+_JVM_Memory_pools_Tenured_Gen_used_after_gc\"} + {__name__=~\".+_JVM_Memory_pools_Eden_Space_used_after_gc\"}) / {__name__=~\".+_JVM_Memory_heap_max\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{`{{source}}`}}",
