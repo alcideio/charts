@@ -9,7 +9,7 @@ metadata:
     app: {{ template "prometheus-operator.name" $ }}-grafana
 {{ include "prometheus-operator.labels" $ | indent 4 }}
 data:
-  alcide-etcd-dashboard.json: |-
+  alcide-organizations-dashboard.json: |-
     {
       "annotations": {
         "list": [
