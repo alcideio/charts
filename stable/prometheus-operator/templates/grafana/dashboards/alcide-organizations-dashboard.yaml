@@ -943,7 +943,7 @@ data:
       "schemaVersion": 19,
       "style": "dark",
       "tags": [
-        "alcide",
+        "Alcide",
         "app"
       ],
       "templating": {
@@ -1022,7 +1022,6 @@ data:
         ]
       },
       "timezone": "",
-      "title": "Alcide Organization View",
-      "uid": "1LPNmSSWz",
-      "version": 30
+      "title": "Alcide / Organization View",
+      "version": 1
     }
