@@ -7,6 +7,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: {{ printf "%s-%s" (include "prometheus-operator.fullname" .) "kubernetes-system" | trunc 63 | trimSuffix "-" }}
+  namespace: {{ .Release.Namespace }}
   labels:
     app: {{ template "prometheus-operator.name" . }}
 {{ include "prometheus-operator.labels" . | indent 4 }}
@@ -24,7 +25,7 @@ spec:
     - alert: KubeNodeNotReady
       annotations:
         message: '{{`{{ $labels.node }}`}} has been unready for more than an hour.'
-        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodenotready
+        runbook_url: {{ .Values.defaultRules.runbookUrl }}alert-name-kubenodenotready
       expr: kube_node_status_condition{job="kube-state-metrics",condition="Ready",status="true"} == 0
       for: 1h
       labels:
@@ -32,7 +33,7 @@ spec:
     - alert: KubeClientErrors
       annotations:
         message: Kubernetes API server client '{{`{{ $labels.job }}`}}/{{`{{ $labels.instance }}`}}' is experiencing {{`{{ printf "%0.0f" $value }}`}}% errors.'
-        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeclienterrors
+        runbook_url: {{ .Values.defaultRules.runbookUrl }}alert-name-kubeclienterrors
       expr: |-
         (sum(rate(rest_client_requests_total{code=~"5.."}[5m])) by (instance, job)
           /
@@ -44,7 +45,7 @@ spec:
     - alert: KubeClientErrors
       annotations:
         message: Kubernetes API server client '{{`{{ $labels.job }}`}}/{{`{{ $labels.instance }}`}}' is experiencing {{`{{ printf "%0.0f" $value }}`}} errors / second.
-        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeclienterrors
+        runbook_url: {{ .Values.defaultRules.runbookUrl }}alert-name-kubeclienterrors
       expr: sum(rate(ksm_scrape_error_total{job="kube-state-metrics"}[5m])) by (instance, job) > 0.1
       for: 15m
       labels:
@@ -52,7 +53,7 @@ spec:
     - alert: KubeletTooManyPods
       annotations:
         message: Kubelet {{`{{ $labels.instance }}`}} is running {{`{{ $value }}`}} Pods, close to the limit of 110.
-        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubelettoomanypods
+        runbook_url: {{ .Values.defaultRules.runbookUrl }}alert-name-kubelettoomanypods
       expr: kubelet_running_pod_count{job="kubelet"} > 110 * 0.9
       for: 15m
       labels:
@@ -120,14 +121,14 @@ spec:
     - alert: KubeClientCertificateExpiration
       annotations:
         message: A client certificate used to authenticate to the apiserver is expiring in less than 7.0 days.
-        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeclientcertificateexpiration
+        runbook_url: {{ .Values.defaultRules.runbookUrl }}alert-name-kubeclientcertificateexpiration
       expr: apiserver_client_certificate_expiration_seconds_count{job="apiserver"} > 0 and histogram_quantile(0.01, sum by (job, le) (rate(apiserver_client_certificate_expiration_seconds_bucket{job="apiserver"}[5m]))) < 604800
       labels:
         severity: warning
     - alert: KubeClientCertificateExpiration
       annotations:
         message: A client certificate used to authenticate to the apiserver is expiring in less than 24.0 hours.
-        runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeclientcertificateexpiration
+        runbook_url: {{ .Values.defaultRules.runbookUrl }}alert-name-kubeclientcertificateexpiration
       expr: apiserver_client_certificate_expiration_seconds_count{job="apiserver"} > 0 and histogram_quantile(0.01, sum by (job, le) (rate(apiserver_client_certificate_expiration_seconds_bucket{job="apiserver"}[5m]))) < 86400
       labels:
         severity: critical
