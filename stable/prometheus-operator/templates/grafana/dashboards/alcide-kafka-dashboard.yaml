@@ -4,7 +4,7 @@ metadata:
   name: grafana-alcide-kafka-dashboard
   labels:
     {{- if $.Values.grafana.sidecar.dashboards.label }}
-      {{ $.Values.grafana.sidecar.dashboards.label }}: "1"
+    {{ $.Values.grafana.sidecar.dashboards.label }}: "1"
     {{- end }}
     app: {{ template "prometheus-operator.name" $ }}-grafana
   {{ include "prometheus-operator.labels" $ | indent 4 }}
