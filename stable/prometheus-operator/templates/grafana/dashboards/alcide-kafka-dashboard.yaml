@@ -83,7 +83,7 @@ data:
           "expr": "rate(process_cpu_seconds_total{pod=~\".*$kafka_index.*\"}[1m])",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{pod}}",
+          "legendFormat": "{{` {{pod}} `}}",
           "metric": "process_cpu_seconds_total",
           "refId": "A",
           "step": 10
@@ -183,7 +183,7 @@ data:
           "expr": "sum without(area)(jvm_memory_bytes_used{pod=~\".*$kafka_index.*\"})",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{pod}}",
+          "legendFormat": "{{` {{pod}} `}}",
           "metric": "jvm_memory_bytes_used",
           "refId": "A",
           "step": 10
@@ -283,7 +283,7 @@ data:
           "expr": "sum without(gc)(rate(jvm_gc_collection_seconds_sum{pod=~\".*$kafka_index.*\"}[5m]))",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{pod}}",
+          "legendFormat": "{{` {{pod}} `}}",
           "metric": "jvm_gc_collection_seconds_sum",
           "refId": "A",
           "step": 10
@@ -760,7 +760,7 @@ data:
           "expr": "sum(kafka_server_brokertopicmetrics_bytesin_total) by (pod)",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{pod}}",
+          "legendFormat": "{{` {{pod}} `}}",
           "metric": "kafka_server_brokertopicmetrics_bytesin_total",
           "refId": "A",
           "step": 10
@@ -856,7 +856,7 @@ data:
           "expr": "sum(kafka_server_brokertopicmetrics_bytesout_total) by (pod)",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{pod}}",
+          "legendFormat": "{{` {{pod}} `}}",
           "metric": "kafka_server_brokertopicmetrics_bytesin_total",
           "refId": "A",
           "step": 10
