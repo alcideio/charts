@@ -74,7 +74,7 @@ data:
         {
           "expr": "{__name__=~\".*_K8SMonitor.*._trace_.*._error_count\"} > 0",
           "interval": "",
-          "legendFormat": "org={{organization}} | cluster={{cluster}}",
+          "legendFormat": "org={{` {{organization}} `}} | cluster={{` {{cluster}} `}}",
           "refId": "A"
         }
         ],
@@ -164,7 +164,7 @@ data:
         {
           "expr": "{__name__=~\".+_K8SMonitor_pthread_count\"}",
           "interval": "",
-          "legendFormat": "org={{organization}} | cluster={{cluster}}",
+          "legendFormat": "org={{` {{organization}} `}} | cluster={{` {{cluster}} `}}",
           "refId": "A"
         }
         ],
@@ -254,7 +254,7 @@ data:
         {
           "expr": "{__name__=~\".+_K8SMonitor_cpu_usage\"}",
           "interval": "",
-          "legendFormat": "org={{organization}} | cluster={{cluster}}",
+          "legendFormat": "org={{` {{organization}} `}} | cluster={{` {{cluster}} `}}",
           "refId": "A"
         }
         ],
@@ -344,7 +344,7 @@ data:
         {
           "expr": "{__name__=~\".+_K8SMonitor_fd_count\"}",
           "interval": "",
-          "legendFormat": "org={{organization}} | cluster={{cluster}}",
+          "legendFormat": "org={{` {{organization}} `}} | cluster={{` {{cluster}} `}}",
           "refId": "A"
         }
         ],
@@ -434,7 +434,7 @@ data:
         {
           "expr": "{__name__=~\".+_K8SMonitor_rss_size\"}",
           "interval": "",
-          "legendFormat": "org={{organization}} | cluster={{cluster}}",
+          "legendFormat": "org={{` {{organization}} `}} | cluster={{` {{cluster}} `}}",
           "refId": "A"
         }
         ],
@@ -524,7 +524,7 @@ data:
         {
           "expr": "{__name__=~\".+_K8SMonitor_runtime_NumGoroutine\"}",
           "interval": "",
-          "legendFormat": "org={{organization}} | cluster={{cluster}}",
+          "legendFormat": "org={{` {{organization}} `}} | cluster={{` {{cluster}} `}}",
           "refId": "A"
         }
         ],
@@ -614,7 +614,7 @@ data:
         {
           "expr": "{__name__=~\".+_K8SMonitor_runtime_MemStats_HeapAlloc\"}",
           "interval": "",
-          "legendFormat": "org={{organization}} | cluster={{cluster}}",
+          "legendFormat": "org={{` {{organization}} `}} | cluster={{` {{cluster}} `}}",
           "refId": "A"
         }
         ],
@@ -704,7 +704,7 @@ data:
         {
           "expr": "{__name__=~\".+_K8SMonitor_virt_size\"}",
           "interval": "",
-          "legendFormat": "org={{organization}} | cluster={{cluster}}",
+          "legendFormat": "org={{` {{organization}} `}} | cluster={{` {{cluster}} `}}",
           "refId": "A"
         }
         ],
