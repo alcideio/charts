@@ -2072,6 +2072,7 @@ prometheus:
       endpoints:
         - port: http
           interval: 30s
+          scrapeTimeout: 15s
           path: /metrics
           scheme: http
 
